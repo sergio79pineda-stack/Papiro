@@ -39,7 +39,7 @@ label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}
 #cover{width:70px;height:100px;object-fit:cover;border-radius:6px;border:1px solid var(--bd);float:right;margin:0 0 8px 8px}
 .item{display:flex;gap:10px;padding:10px;border-bottom:1px solid var(--bd);cursor:pointer}
 .item:last-child{border-bottom:0}
-.item img,.item .ph{width:42px;height:60px;object-fit:cover;border-radius:4px;background:var(--bd);flex:none}
+.item img,.item .ph{width:100px;height:148px;object-fit:cover;border-radius:7px;background:var(--bd);flex:none}.item{align-items:flex-start}.item>div:last-child{padding:5px 0}
 .item b{display:block;font-size:15px}
 .item small{color:var(--mut);display:block}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom)}
@@ -97,10 +97,11 @@ nav button:hover{background:#ff3f98;color:#16040d;transform:translateY(-2px)}
 #status,#ocr-msg{line-height:1.5}
 #cover{border-color:#f06aa8}
 .brand-mark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:7px;border:2px solid #ffadd1;border-radius:50% 50% 45% 45%;color:#ffadd1;font-family:Georgia,serif;font-size:29px;vertical-align:middle;box-shadow:0 0 15px #f06aa855}
-.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.photo-pair img{width:100%;max-width:190px;height:190px;object-fit:contain;border:1px solid #f06aa8;border-radius:10px;background:#08080c}.book-detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.book-detail div{padding:9px;border:1px solid #49303c;border-radius:9px;overflow-wrap:anywhere}.book-detail small{display:block;color:#ffadd1}.alert{border:1px solid #ff8585;background:#35121d;border-radius:12px;padding:12px;margin:10px 0}.loan-row{padding:12px 0;border-bottom:1px solid #49303c}.loan-row:last-child{border-bottom:0}
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.photo-pair>div{min-width:0;display:flex;flex-direction:column;align-items:stretch}.photo-pair img{display:block;width:100%;max-width:none;height:clamp(210px,34vw,330px);object-fit:cover;border:1px solid #f06aa8;border-radius:10px;background:#08080c}.photo-pair .h{margin-top:8px;text-align:center}.item img{object-fit:contain;background:#08080c}.book-detail-view{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.detail-images{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-images img{width:100%;height:clamp(240px,38vw,390px);object-fit:contain;background:#08080c;border:1px solid #f06aa8;border-radius:12px}.detail-images p{text-align:center;color:#ffadd1;font-weight:700}.detail-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.copyright{padding:18px;text-align:center;color:#a99aa2;font-size:12px}.book-detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.book-detail div{padding:9px;border:1px solid #49303c;border-radius:9px;overflow-wrap:anywhere}.book-detail small{display:block;color:#ffadd1}.alert{border:1px solid #ff8585;background:#35121d;border-radius:12px;padding:12px;margin:10px 0}.loan-row{padding:12px 0;border-bottom:1px solid #49303c}.loan-row:last-child{border-bottom:0}
 .stats-card{max-width:100%}.total-books{display:flex;align-items:center;justify-content:space-between;padding:18px;border-radius:14px;background:linear-gradient(120deg,#42152d,#21101b);border:1px solid #f06aa8;margin-bottom:16px}.total-books span{font-weight:700;color:#ffd0e4}.total-books strong{font-size:42px;color:#ff8cbe;line-height:1}
 .stats-chart{margin-top:18px;display:grid;gap:12px}.stat-row{display:grid;grid-template-columns:minmax(100px, 1fr) minmax(80px,3fr) 42px;gap:10px;align-items:center;font-size:13px}.stat-label{overflow-wrap:anywhere;color:#f7e7ef}.stat-track{height:13px;background:#2a1b24;border-radius:20px;overflow:hidden;border:1px solid #573044}.stat-fill{height:100%;background:linear-gradient(90deg,#c8397c,#ff9fc9);border-radius:20px}.stat-num{text-align:right;font-weight:800;color:#ffadd1}
 p.h{color:#c5b8c0;line-height:1.5}
+@media(max-width:520px){.item img,.item .ph{width:82px;height:124px}.photo-pair{gap:8px}.photo-pair img{height:210px}.detail-images{gap:8px}.detail-images img{height:230px}}
 @media(min-width:850px){main{padding-bottom:35px}section:not(.section-hero){ }#t-scan .card:first-of-type{display:block}#t-lib .card,#t-more .card,#t-stats .card{padding:26px}}
 @media(max-width:560px){header{padding:12px 14px}.section-hero{height:230px}.hero-title{padding:20px 16px}.row{gap:7px}.row .btn{padding:11px 8px;font-size:12px}.isbnrow{gap:6px}.isbnrow .btn{padding:11px 12px}nav{gap:5px;padding-left:6px;padding-right:6px}nav button{flex-direction:column;gap:3px;padding:7px 2px;border-radius:10px}nav button span{font-size:11px}.stat-row{grid-template-columns:minmax(82px,1fr) minmax(45px,2fr) 30px;gap:7px}.item{gap:9px}.item img,.item .ph{width:46px;height:66px}}
 
@@ -155,7 +156,7 @@ p.h{color:#c5b8c0;line-height:1.5}
     <div id="ocr-msg" class="h"></div>
     <div id="ocr-lineas"></div>
     <details id="ocr-det" hidden><summary>Texto leído de la foto</summary><textarea id="ocr-txt" rows="8" readonly></textarea></details>
-    <label for="f-inventario">Número de inventario *</label><input id="f-inventario" placeholder="Ej.: PAP-0001" autocomplete="off"><p class="h">Identifica cada ejemplar físico, incluso si hay varios de la misma obra.</p>
+    <label for="f-inventario">Número de inventario *</label><div class="isbnrow"><span style="display:flex;align-items:center;padding:0 12px;border:1px solid #6f5261;border-radius:11px;background:#171017;color:#ffadd1;font-weight:800">PAP-</span><input id="f-inventario" placeholder="0001" autocomplete="off" aria-label="Número correlativo de inventario, sin el prefijo PAP-"></div><p class="h">Completá solo la parte numérica. Se guardará como PAP-0001, PAP-0002, etc.</p>
     <label for="f-isbn">ISBN</label><input id="f-isbn" inputmode="numeric">
     <label for="f-titulo">Título *</label><input id="f-titulo">
     <label for="f-autor">Autor</label><input id="f-autor">
@@ -186,11 +187,12 @@ p.h{color:#c5b8c0;line-height:1.5}
     <input id="q" type="search" placeholder="Buscar por título, autor, editorial o ISBN">
     <div id="list" style="margin-top:8px"></div>
   </div>
+  <div class="card" id="book-detail-card" hidden><h2 id="detail-title">Ficha del libro</h2><div id="detail-body"></div><div class="detail-actions"><button class="btn" id="detail-edit">Editar</button><button class="btn sec" id="detail-duplicate">Duplicar registro</button><button class="btn red" id="detail-expunge">Dar de baja / expurgo</button><button class="btn sec" id="detail-close">Cerrar ficha</button></div></div>
 </section>
 
 <section id="t-loans" hidden><div class="section-hero hero-loans"><div class="hero-shade"></div><div class="hero-title"><span>CIRCULACIÓN</span><h2>Préstamos</h2><p>Lectores, ejemplares, vencimientos y devoluciones.</p></div></div>
   <div class="card"><h2>Alertas de recuperación</h2><p class="h">Se muestran los préstamos vencidos hace 10 días o más para reclamar la devolución.</p><div id="loan-alerts"></div></div>
-  <div class="card"><h2>Registrar lector</h2><div class="row"><div><label for="r-nombre">Nombre *</label><input id="r-nombre"></div><div><label for="r-apellido">Apellido *</label><input id="r-apellido"></div></div><div class="row"><div><label for="r-dni">DNI *</label><input id="r-dni" inputmode="numeric"></div><div><label for="r-socio">N.º de socio (opcional)</label><input id="r-socio"></div></div><div class="row"><div><label for="r-telefono">Teléfono *</label><input id="r-telefono"></div><div><label for="r-mail">Correo *</label><input id="r-mail" type="email"></div></div><label for="r-direccion">Dirección *</label><input id="r-direccion"><button class="btn" id="r-save">Guardar lector</button><label for="r-select">Lector registrado</label><select id="r-select"><option value="">Seleccionar lector</option></select><div id="reader-info"></div></div>
+  <div class="card"><h2>Registrar lector</h2><div class="row"><div><label for="r-nombre">Nombre *</label><input id="r-nombre"></div><div><label for="r-apellido">Apellido *</label><input id="r-apellido"></div></div><div class="row"><div><label for="r-dni">DNI *</label><input id="r-dni" inputmode="numeric"></div><div><label for="r-socio">N.º de socio (opcional)</label><input id="r-socio"></div></div><div class="row"><div><label for="r-telefono">Teléfono *</label><input id="r-telefono"></div><div><label for="r-mail">Correo *</label><input id="r-mail" type="email"></div></div><label for="r-direccion">Dirección *</label><input id="r-direccion"><button class="btn" id="r-save">Guardar lector</button><label for="r-select">Lector registrado</label><select id="r-select"><option value="">Seleccionar lector</option></select><button class="btn sec" id="r-delete" type="button">Eliminar lector seleccionado</button><div id="reader-info"></div></div>
   <div class="card"><h2>Registrar préstamo</h2><label for="l-book">Ejemplar (número de inventario)</label><select id="l-book"><option value="">Seleccionar ejemplar disponible</option></select><label for="l-type">Modalidad</label><select id="l-type"><option value="sala">Préstamo en sala</option><option value="domicilio">Préstamo a domicilio</option></select><label for="l-days">Días de préstamo (domicilio: máximo 3)</label><select id="l-days"><option value="1">1 día</option><option value="2">2 días</option><option value="3">3 días</option></select><label class="chk"><input id="l-override" type="checkbox"> Autorizar excepción manual si el lector tiene deuda</label><label for="l-reason">Motivo de la excepción (obligatorio si se autoriza)</label><input id="l-reason" placeholder="Motivo de autorización"><button class="btn" id="l-save">Registrar préstamo</button><p class="h">Un ejemplar por operación. No se permite prestar a un lector con un préstamo pendiente/vencido, salvo autorización manual registrada.</p></div>
   <div class="card"><h2>Préstamos activos e historial</h2><div id="loans-list"></div></div>
 </section>
@@ -236,6 +238,7 @@ p.h{color:#c5b8c0;line-height:1.5}
 </section>
 
 </main>
+<footer class="copyright">© 2026 Papiro · Todos los derechos reservados</footer>
 <nav>
   <button data-t="scan" class="on">＋ <span>Cargar</span></button>
   <button data-t="lib">▤ <span>Biblioteca</span></button>
@@ -248,7 +251,7 @@ p.h{color:#c5b8c0;line-height:1.5}
 const $ = s => document.querySelector(s);
 const KEY = 'papiro_biblioteca_v2', CFG = 'papiro_biblioteca_cfg';
 const F = ['inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas'];
-let libros = [], lectores = [], prestamos = [], editId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
+let libros = [], lectores = [], prestamos = [], expurgos = [], editId = null, detailId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
 
 /* Almacenamiento en IndexedDB (aguanta muchas fotos); migra lo viejo de localStorage */
 function idb() { return new Promise((ok, no) => { const r = indexedDB.open('biblioteca_db', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); }); }
@@ -261,13 +264,13 @@ async function init() {
     try { v = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { v = []; }
     if (v.length) idbSet('libros', v).catch(() => {});
   }
-  libros = v; lectores = (await idbGet('lectores').catch(()=>[])) || []; prestamos = (await idbGet('prestamos').catch(()=>[])) || []; updateCount(); renderLoans();
+  libros = v; lectores = (await idbGet('lectores').catch(()=>[])) || []; prestamos = (await idbGet('prestamos').catch(()=>[])) || []; expurgos = (await idbGet('expurgos').catch(()=>[])) || []; updateCount(); renderLoans();
 }
 try { const c = JSON.parse(localStorage.getItem(CFG) || '{}'); $('#def-ubic').value = c.ubic || ''; $('#def-col').value = c.col || ''; $('#quick').checked = !!c.quick; } catch (e) {}
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 
 function persist() { idbSet('libros', libros).catch(e => alert('No se pudo guardar: ' + (e && e.message))); }
-function persistLoans(){idbSet('lectores',lectores);idbSet('prestamos',prestamos);renderLoans();}
+function persistLoans(){idbSet('lectores',lectores);idbSet('prestamos',prestamos);idbSet('expurgos',expurgos);renderLoans();}
 function saveCfg() { try { localStorage.setItem(CFG, JSON.stringify({ ubic: $('#def-ubic').value, col: $('#def-col').value, quick: $('#quick').checked })); } catch (e) {} }
 function updateCount() { $('#count').textContent = libros.length + (libros.length === 1 ? ' libro' : ' libros'); }
 function status(t, cls) { const s = $('#status'); s.textContent = t; s.className = cls || ''; }
@@ -424,7 +427,7 @@ function setCover(u) {
   $('#btn-quitar-foto').hidden = !u;
 }
 function setBackCover(u) { const i = $('#back-cover'); i.dataset.src = u || ''; if (u) { i.src = u; i.hidden = false; } else { i.removeAttribute('src'); i.hidden = true; } $('#btn-quitar-contra').hidden = !u; }
-function fill(d) { F.forEach(k => { if (d[k] !== undefined) $('#f-' + k).value = d[k]; }); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); }
+function fill(d) { F.forEach(k => { if (d[k] !== undefined) $('#f-' + k).value = k === 'inventario' ? String(d[k]||'').replace(/^PAP-/i,'') : d[k]; }); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); }
 
 /* ---------- Lectura de la página legal (OCR) ---------- */
 function isbnValido(c) {
@@ -526,10 +529,10 @@ function aCapitalizada(t, modo) { // modo 'oracion' (título) o 'nombre'
   if (modo === 'nombre') return low.split(' ').map((w, i) => (i > 0 && PARTICULAS.test(w)) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   return low.charAt(0).toUpperCase() + low.slice(1);
 }
-function parsePortada(lines) { // lines: [{ t: texto, h: alto en px }]
-  const L = lines.map(l => ({ t: String(l.t).replace(/\s+/g, ' ').trim(), h: l.h || 0 })).filter(l => {
+function parsePortada(lines) { // lines: [{ t: texto, h: alto en px, confidence: confianza OCR }]
+  const L = lines.map(l => ({ t: String(l.t).replace(/\s+/g, ' ').trim(), h: l.h || 0, confidence: l.confidence == null ? 100 : l.confidence })).filter(l => {
     const letras = (l.t.match(/\p{L}/gu) || []).length;
-    return letras >= 3 && letras / l.t.length >= 0.6;
+    return l.confidence >= 58 && letras >= 4 && letras / l.t.length >= 0.68 && !/[|{}<>\\_]{2,}/.test(l.t);
   });
   const out = { lineas: L.map(l => l.t) };
   const usadas = new Set();
@@ -693,14 +696,23 @@ async function ocrLegal(txt) {
   }
 }
 function ocrPortada(r) {
-  const lines = ((r.data && r.data.lines) || []).map(l => ({ t: l.text, h: l.bbox.y1 - l.bbox.y0 }));
+  const lines = ((r.data && r.data.lines) || []).map(l => ({ t: l.text, h: l.bbox.y1 - l.bbox.y0, confidence: l.confidence }));
   const p = parsePortada(lines), hallados = [];
-  poner('titulo', p.titulo, 'título', hallados); poner('autor', p.autor, 'autor', hallados); poner('coleccion', p.coleccion, 'colección', hallados);
-  ocrLineasTxt = p.lineas;
-  $('#ocr-lineas').innerHTML = p.lineas.length ? '<p class="h">Líneas leídas. Si algo quedó mal, tocá cuál es título o autor (se suma al campo):</p>' +
-    p.lineas.map((t, i) => '<div class="lin"><span>' + esc(t) + '</span><button data-k="titulo" data-i="' + i + '">Título</button><button data-k="autor" data-i="' + i + '">Autor</button></div>').join('') : '';
-  if (!p.lineas.length) ocrMsg('No pude leer texto en la portada (letras muy decoradas o poca luz). Probá otra foto o escribilo.', 'err');
-  else ocrMsg((hallados.length ? 'Completé: ' + hallados.join(', ') + '. ' : 'No adiviné título ni autor. ') + 'Revisalo: las portadas con letras decoradas se leen peor.', hallados.length ? 'ok' : 'err');
+  const quality = lines.length ? lines.reduce((a,l)=>a+(Number(l.confidence)||0),0)/lines.length : 0;
+  const plausible = p.lineas.filter(t => (t.match(/\p{L}/gu)||[]).length >= 4 && !/[0-9]{4,}/.test(t));
+  if (quality < 48 || plausible.length === 0 || (!p.titulo && !p.autor)) {
+    $('#ocr-lineas').innerHTML=''; $('#ocr-det').hidden=true; $('#ocr-txt').value='';
+    ocrMsg('No se pudo leer con suficiente confianza el título o el autor. No completé campos para evitar datos incorrectos. Probá otra foto, con la tapa de frente, buena luz y sin reflejos, o ingresalos a mano.','err');
+    return;
+  }
+  // Solo completar campos cuando la lectura sea razonablemente clara; nunca inventar combinaciones.
+  const tituloOk = p.titulo && (p.titulo.match(/\p{L}/gu)||[]).length >= 4 && p.titulo.length < 110;
+  const autorOk = p.autor && (p.autor.match(/\p{L}/gu)||[]).length >= 4 && p.autor.length < 65;
+  if(tituloOk) poner('titulo',p.titulo,'título',hallados);
+  if(autorOk) poner('autor',p.autor,'autor',hallados);
+  if(!hallados.length){$('#ocr-lineas').innerHTML='';$('#ocr-det').hidden=true;$('#ocr-txt').value='';ocrMsg('No se pudo identificar título o autor con suficiente confianza. No se modificaron los campos. Probá otra foto o cargalos a mano.','err');return;}
+  $('#ocr-lineas').innerHTML=''; $('#ocr-det').hidden=true; $('#ocr-txt').value='';
+  ocrMsg('Lectura tentativa de '+hallados.join(' y ')+'. Revisá los campos antes de guardar; si no coinciden, corregilos manualmente.','ok');
 }
 function ocrResumen(txt) {
   const s = limpiarResumen(txt);
@@ -731,7 +743,7 @@ function procesarFoto(file) {
   if (!file) return;
   const url = URL.createObjectURL(file), img = new Image();
   img.onload = () => {
-    const s = Math.min(1, 360 / Math.max(img.width, img.height));
+    const s = Math.min(1, 900 / Math.max(img.width, img.height));
     const c = document.createElement('canvas');
     c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
     c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
@@ -784,7 +796,7 @@ async function buscarTitulo(q) {
       '<div><b>' + esc(b.titulo) + '</b><small>' + esc([b.autor, b.editorial, b.anio].filter(Boolean).join(' · ')) + '</small></div></div>').join('')
     : '<p class="h">No encontré resultados. Probá con menos palabras (título + apellido) o cargalo a mano.</p>';
 }
-function readForm() { const o = {}; F.forEach(k => o[k] = $('#f-' + k).value.trim()); o.portada = $('#cover').dataset.src || ''; o.contratapa = $('#back-cover').dataset.src || ''; return o; }
+function readForm() { const o = {}; F.forEach(k => o[k] = $('#f-' + k).value.trim()); o.inventario = o.inventario ? (()=>{const n=o.inventario.replace(/^PAP-/i,'').replace(/[^a-z0-9-]/gi,'');return 'PAP-'+n.padStart(Math.max(4,n.length),'0')})() : ''; o.portada = $('#cover').dataset.src || ''; o.contratapa = $('#back-cover').dataset.src || ''; return o; }
 function limpiar(keepStatus) {
   F.forEach(k => $('#f-' + k).value = '');
   $('#f-ubicacion').value = $('#def-ubic').value;
@@ -797,7 +809,7 @@ function limpiar(keepStatus) {
 function guardarLibro(auto) {
   const o = readForm();
   if (!o.titulo) { alert('Falta el título'); return false; }
-  if (!o.inventario) { alert('Ingresá el número de inventario del ejemplar.'); return false; }
+  if (!o.inventario || o.inventario === 'PAP-0000') { alert('Ingresá el número correlativo de inventario.'); return false; }
   if (libros.some(x => x.inventario && x.inventario.toLowerCase() === o.inventario.toLowerCase() && x.id !== editId)) { alert('Ese número de inventario ya existe. Cada ejemplar debe tener uno distinto.'); return false; }
   if (editId) {
     const i = libros.findIndex(x => x.id === editId);
@@ -837,8 +849,10 @@ $('#btn-save').onclick = () => {
 };
 $('#btn-cancel').onclick = () => { limpiar(); };
 $('#btn-del').onclick = () => {
-  if (!editId || !confirm('¿Eliminar este libro?')) return;
-  libros = libros.filter(x => x.id !== editId); persist(); updateCount(); limpiar(); tab('lib');
+  if (!editId) return; const b=libros.find(x=>x.id===editId); if(!b)return;
+  const motivo=prompt('Motivo del expurgo (venta, rotura, pérdida, descarte u otro):'); if(motivo===null)return; if(!motivo.trim()){alert('Indicá el motivo de la baja.');return;}
+  if(!confirm('¿Dar de baja «'+b.titulo+'»? El registro de expurgo quedará en la copia de seguridad.'))return;
+  expurgos.push({id:b.id,inventario:b.inventario||'',titulo:b.titulo||'',autor:b.autor||'',motivo:motivo.trim(),fecha:fechaISO(new Date())}); libros=libros.filter(x=>x.id!==editId);persist();persistLoans();updateCount();limpiar();tab('lib');
 };
 $('#def-ubic').addEventListener('change', saveCfg);
 $('#def-col').addEventListener('change', saveCfg);
@@ -866,7 +880,7 @@ $('#btn-quitar-contra').onclick = () => setBackCover('');
 function procesarFotoComoContratapa(file) {
   if (!file) return;
   const url = URL.createObjectURL(file), img = new Image();
-  img.onload = () => { const scale = Math.min(1, 360 / Math.max(img.width, img.height)); const c = document.createElement('canvas'); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale); c.getContext('2d').drawImage(img,0,0,c.width,c.height); setBackCover(c.toDataURL('image/jpeg',.68)); URL.revokeObjectURL(url); };
+  img.onload = () => { const scale = Math.min(1, 900 / Math.max(img.width, img.height)); const c = document.createElement('canvas'); c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale); c.getContext('2d').drawImage(img,0,0,c.width,c.height); setBackCover(c.toDataURL('image/jpeg',.68)); URL.revokeObjectURL(url); };
   img.onerror = () => { URL.revokeObjectURL(url); alert('No se pudo leer la foto.'); }; img.src = url;
 }
 const pedirOcr = m => { ocrModo = m; $('#foto-ocr').click(); };
@@ -905,7 +919,18 @@ function renderList() {
   ).join('') : '<p class="h">' + (libros.length ? 'Sin resultados.' : 'Todavía no cargaste libros.') + '</p>';
 }
 $('#q').addEventListener('input', renderList);
-$('#list').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) editar(it.dataset.id); });
+function verLibro(id) {
+ const b=libros.find(x=>x.id===id); if(!b)return; detailId=id;
+ $('#detail-title').textContent=b.titulo||'Ficha del libro';
+ const fields=[['Número de inventario',b.inventario],['ISBN',b.isbn],['Autor',b.autor],['Editorial',b.editorial],['Colección',b.coleccion],['Materia',b.genero],['Clasificación CDD',b.cdd],['Año',b.anio],['Páginas',b.paginas],['Idioma',b.idioma],['Ubicación',b.ubicacion],['Resumen',b.resumen],['Notas',b.notas]];
+ $('#detail-body').innerHTML='<div class="detail-images">'+(b.portada?'<div><img src="'+esc(b.portada)+'" alt="Portada"><p>Portada</p></div>':'<div><div class="ph"></div><p>Portada no cargada</p></div>')+(b.contratapa?'<div><img src="'+esc(b.contratapa)+'" alt="Contratapa"><p>Contratapa</p></div>':'<div><div class="ph"></div><p>Contratapa no cargada</p></div>')+'</div><div class="book-detail-view" style="margin-top:14px">'+fields.map(([k,v])=>'<div><small style="display:block;color:#ffadd1;font-weight:800">'+esc(k)+'</small><div style="white-space:pre-wrap">'+esc(v||'—')+'</div></div>').join('')+'</div>';
+ $('#book-detail-card').hidden=false; $('#book-detail-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#list').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) verLibro(it.dataset.id); });
+$('#detail-close').onclick=()=>{$('#book-detail-card').hidden=true;detailId=null;};
+$('#detail-edit').onclick=()=>{if(detailId){const id=detailId;$('#book-detail-card').hidden=true;editar(id);}};
+$('#detail-duplicate').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x.id===detailId);if(!b)return;limpiar(true);const copy=Object.assign({},b);delete copy.id;copy.inventario='';fill(copy);editId=null;$('#formcard').hidden=false;$('#formtitle').textContent='Duplicar registro — asigná un inventario nuevo';$('#btn-del').hidden=true;tab('scan');$('#formcard').scrollIntoView({behavior:'smooth'});};
+$('#detail-expunge').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x.id===detailId);if(!b)return;const motivo=prompt('Motivo del expurgo (venta, rotura, pérdida, descarte u otro):');if(motivo===null)return;if(!motivo.trim()){alert('Indicá el motivo de la baja para registrar el expurgo.');return;}if(!confirm('¿Dar de baja «'+b.titulo+'» del catálogo? Se conservará el registro de expurgo.'))return;expurgos.push({id:b.id,inventario:b.inventario||'',titulo:b.titulo||'',autor:b.autor||'',motivo:motivo.trim(),fecha:fechaISO(new Date())});libros=libros.filter(x=>x.id!==b.id);persist();persistLoans();updateCount();renderList();$('#book-detail-card').hidden=true;detailId=null;alert('Libro dado de baja y expurgo registrado.');};
 
 /* ---------- Exportar ---------- */
 const COLS = [['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen']];
@@ -946,7 +971,7 @@ function marcExport(ext) {
 $('#m-iso').onclick = () => marcExport('iso');
 $('#m-mrc').onclick = () => marcExport('mrc');
 $('#m-xml').onclick = () => marcExport('xml');
-$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({version:2,libros,lectores,prestamos}), 'application/json');
+$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({version:3,libros,lectores,prestamos,expurgos}), 'application/json');
 $('#b-imp').onclick = () => $('#b-file').click();
 $('#b-file').onchange = async e => {
   const f = e.target.files[0]; if (!f) return;
@@ -957,7 +982,7 @@ $('#b-file').onchange = async e => {
     const ids = new Set(libros.map(x => x.id));
     const nuevos = arr.filter(x => x && x.titulo && x.id && !ids.has(x.id));
     if (!confirm('Se van a agregar ' + nuevos.length + ' libros nuevos (se omiten los repetidos). ¿Seguir?')) return;
-    libros = libros.concat(nuevos); if(!Array.isArray(data)){const rids=new Set(lectores.map(x=>x.id));lectores=lectores.concat((data.lectores||[]).filter(x=>!rids.has(x.id)));const pids=new Set(prestamos.map(x=>x.id));prestamos=prestamos.concat((data.prestamos||[]).filter(x=>!pids.has(x.id)));persistLoans();} persist(); updateCount(); alert('Listo: ' + nuevos.length + ' libros agregados.');
+    libros = libros.concat(nuevos); if(!Array.isArray(data)){const rids=new Set(lectores.map(x=>x.id));lectores=lectores.concat((data.lectores||[]).filter(x=>!rids.has(x.id)));const pids=new Set(prestamos.map(x=>x.id));prestamos=prestamos.concat((data.prestamos||[]).filter(x=>!pids.has(x.id)));expurgos=expurgos.concat((data.expurgos||[]).filter(x=>!expurgos.some(y=>y.id===x.id&&y.fecha===x.fecha)));persistLoans();} persist(); updateCount(); alert('Listo: ' + nuevos.length + ' libros agregados.');
   } catch (err) { alert('No se pudo importar: ' + err.message); }
   e.target.value = '';
 };
@@ -984,7 +1009,9 @@ function renderLoans(){
  $('#loans-list').innerHTML=prestamos.length?prestamos.slice().reverse().map(p=>{const r=lectores.find(x=>x.id===p.lectorId)||{},b=libros.find(x=>x.id===p.libroId)||{};return '<div class="loan-row"><b>'+esc(b.titulo||'Libro eliminado')+' · '+esc(b.inventario||'sin inventario')+'</b><p>'+esc(lectorNombre(r))+' · '+esc(p.tipo==='sala'?'En sala':'A domicilio')+'</p><p class="h">Préstamo: '+esc(p.fecha)+' · Vencimiento: '+esc(p.vencimiento||'al finalizar la visita')+' · '+(p.devolucion?'Devuelto: '+esc(p.devolucion):vencido(p)?'<b style="color:#ff8585">VENCIDO</b>':'Pendiente')+'</p>'+(p.excepcion?'<p class="h">Excepción autorizada: '+esc(p.motivo||'')+'</p>':'')+(!p.devolucion?'<button class="btn sec" data-return="'+esc(p.id)+'">Registrar devolución</button>':'')+'</div>'}).join(''):'<p class="h">Todavía no hay préstamos.</p>';
  const rid=sel.value, r=lectores.find(x=>x.id===rid); $('#reader-info').innerHTML=r?'<p class="h">Préstamos pendientes: '+deudaLector(rid)+' · DNI: '+esc(r.dni)+'</p>':'';
 }
-$('#r-save').onclick=()=>{const r={nombre:$('#r-nombre').value.trim(),apellido:$('#r-apellido').value.trim(),dni:$('#r-dni').value.trim(),socio:$('#r-socio').value.trim(),telefono:$('#r-telefono').value.trim(),mail:$('#r-mail').value.trim(),direccion:$('#r-direccion').value.trim()};if(!r.nombre||!r.apellido||!r.dni||!r.telefono||!r.mail||!r.direccion){alert('Completá nombre, apellido, DNI, teléfono, correo y dirección. El número de socio es opcional.');return}if(lectores.some(x=>x.dni===r.dni)){alert('Ya existe un lector con ese DNI.');return}r.id='r'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);lectores.push(r);persistLoans();$('#r-select').value=r.id;alert('Lector guardado.');};
+$('#r-dni').setAttribute('maxlength','8');$('#r-dni').setAttribute('pattern','[0-9]{7,8}');$('#r-telefono').setAttribute('inputmode','tel');$('#r-mail').setAttribute('autocomplete','email');
+$('#r-save').onclick=()=>{const r={nombre:$('#r-nombre').value.trim(),apellido:$('#r-apellido').value.trim(),dni:$('#r-dni').value.replace(/\D/g,''),socio:$('#r-socio').value.trim(),telefono:$('#r-telefono').value.trim(),mail:$('#r-mail').value.trim(),direccion:$('#r-direccion').value.trim()};if(!r.nombre||!r.apellido||!r.dni||!r.telefono||!r.mail||!r.direccion){alert('Completá nombre, apellido, DNI, teléfono, correo y dirección. El número de socio es opcional.');return}if(!/^\d{7,8}$/.test(r.dni)){alert('El DNI debe tener 7 u 8 dígitos, sin puntos ni letras.');$('#r-dni').focus();return}const telDigits=r.telefono.replace(/\D/g,'');if(telDigits.length<8||telDigits.length>15){alert('El teléfono debe contener entre 8 y 15 dígitos. Incluí código de área si corresponde.');$('#r-telefono').focus();return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(r.mail)){alert('El correo no tiene un formato válido. Revisá que tenga usuario, @ y dominio.');$('#r-mail').focus();return}if(lectores.some(x=>x.dni===r.dni)){alert('Ya existe un lector con ese DNI.');return}r.id='r'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);lectores.push(r);persistLoans();$('#r-select').value=r.id;$('#r-nombre').value='';$('#r-apellido').value='';$('#r-dni').value='';$('#r-socio').value='';$('#r-telefono').value='';$('#r-mail').value='';$('#r-direccion').value='';alert('Lector guardado. Quedó disponible en «Lector registrado» para próximos préstamos.');};
+$('#r-delete').onclick=()=>{const id=$('#r-select').value;if(!id){alert('Seleccioná primero un lector registrado.');return}const r=lectores.find(x=>x.id===id);if(!r)return;if(prestamos.some(p=>p.lectorId===id&&!p.devolucion)){alert('No se puede eliminar este lector porque tiene préstamos pendientes. Registrá las devoluciones primero.');return}if(!confirm('¿Eliminar de la lista de lectores a '+lectorNombre(r)+'? El historial de préstamos ya registrado se conserva.'))return;lectores=lectores.filter(x=>x.id!==id);persistLoans();$('#r-select').value='';};
 $('#l-save').onclick=()=>{const rid=$('#r-select').value,bid=$('#l-book').value,type=$('#l-type').value,reader=lectores.find(r=>r.id===rid);if(!reader||!bid){alert('Seleccioná un lector y un ejemplar disponible.');return}const outstanding=prestamos.filter(p=>p.lectorId===rid&&vencido(p));const override=$('#l-override').checked,reason=$('#l-reason').value.trim();if(outstanding.length&&!override){alert('Préstamo bloqueado: el lector tiene un préstamo vencido. Solo el administrador puede autorizar una excepción.');return}if(outstanding.length&&override&&!reason){alert('Indicá el motivo de la excepción manual.');return}const now=new Date(),days=Math.min(3,Math.max(1,Number($('#l-days').value)||1)),due=new Date(now);due.setDate(due.getDate()+(type==='sala'?0:days));prestamos.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),lectorId:rid,libroId:bid,tipo:type,dias:type==='sala'?0:days,fecha:fechaISO(now),vencimiento:type==='sala'?fechaISO(now):fechaISO(due),devolucion:'',excepcion:outstanding.length&&override,motivo:outstanding.length&&override?reason:''});$('#l-override').checked=false;$('#l-reason').value='';persistLoans();alert('Préstamo registrado.');};
 $('#r-select').addEventListener('change',renderLoans);$('#l-type').addEventListener('change',()=>{$('#l-days').disabled=$('#l-type').value==='sala'});
 $('#loans-list').addEventListener('click',e=>{const b=e.target.closest('[data-return]');if(!b)return;const p=prestamos.find(x=>x.id===b.dataset.return);if(!p||p.devolucion)return;if(confirm('¿Confirmás la devolución de este ejemplar?')){p.devolucion=fechaISO(new Date());persistLoans();}});
