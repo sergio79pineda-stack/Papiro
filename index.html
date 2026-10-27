@@ -68,7 +68,7 @@ header span{font-size:13px;color:#ffc2dd}
 main{padding:0 0 24px;max-width:1200px;margin:0 auto}
 section{padding:0 clamp(12px,3vw,30px)}
 .section-hero{height:clamp(210px,31vw,360px);margin:0 calc(clamp(12px,3vw,30px) * -1) 22px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;overflow:hidden;border-bottom:2px solid #f06aa8}
-.hero-scan{background-image:url('biblioteca-san-francisco.jpg')}.hero-lib{background-image:url('biblioteca-praga.jpg')}.hero-more,.hero-stats{background-image:url('biblioteca-alejandria.jpg')}
+.hero-loans{background-image:linear-gradient(135deg,#301022,#08080c 45%,#70234b)}.hero-scan{background-image:url('biblioteca-san-francisco.jpg')}.hero-lib{background-image:url('biblioteca-praga.jpg')}.hero-more,.hero-stats{background-image:url('biblioteca-alejandria.jpg')}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.83),rgba(0,0,0,.3) 75%),linear-gradient(0deg,rgba(0,0,0,.65),transparent 80%)}
 .hero-title{position:relative;padding:clamp(18px,4vw,42px);max-width:850px}
 .hero-title span{font-size:11px;letter-spacing:.22em;color:#ffacd1;font-weight:800}
@@ -96,6 +96,8 @@ nav button:hover{background:#ff3f98;color:#16040d;transform:translateY(-2px)}
 .lin button{border:1px solid #f06aa8;color:#ffc0db;background:#20121a;border-radius:8px}
 #status,#ocr-msg{line-height:1.5}
 #cover{border-color:#f06aa8}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:7px;border:2px solid #ffadd1;border-radius:50% 50% 45% 45%;color:#ffadd1;font-family:Georgia,serif;font-size:29px;vertical-align:middle;box-shadow:0 0 15px #f06aa855}
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.photo-pair img{width:100%;max-width:190px;height:190px;object-fit:contain;border:1px solid #f06aa8;border-radius:10px;background:#08080c}.book-detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}.book-detail div{padding:9px;border:1px solid #49303c;border-radius:9px;overflow-wrap:anywhere}.book-detail small{display:block;color:#ffadd1}.alert{border:1px solid #ff8585;background:#35121d;border-radius:12px;padding:12px;margin:10px 0}.loan-row{padding:12px 0;border-bottom:1px solid #49303c}.loan-row:last-child{border-bottom:0}
 .stats-card{max-width:100%}.total-books{display:flex;align-items:center;justify-content:space-between;padding:18px;border-radius:14px;background:linear-gradient(120deg,#42152d,#21101b);border:1px solid #f06aa8;margin-bottom:16px}.total-books span{font-weight:700;color:#ffd0e4}.total-books strong{font-size:42px;color:#ff8cbe;line-height:1}
 .stats-chart{margin-top:18px;display:grid;gap:12px}.stat-row{display:grid;grid-template-columns:minmax(100px, 1fr) minmax(80px,3fr) 42px;gap:10px;align-items:center;font-size:13px}.stat-label{overflow-wrap:anywhere;color:#f7e7ef}.stat-track{height:13px;background:#2a1b24;border-radius:20px;overflow:hidden;border:1px solid #573044}.stat-fill{height:100%;background:linear-gradient(90deg,#c8397c,#ff9fc9);border-radius:20px}.stat-num{text-align:right;font-weight:800;color:#ffadd1}
 p.h{color:#c5b8c0;line-height:1.5}
@@ -105,7 +107,7 @@ p.h{color:#c5b8c0;line-height:1.5}
 </style>
 </head>
 <body>
-<header><h1>📚 Papiro</h1><span id="count">0 libros</span></header>
+<header><h1><span class="brand-mark" aria-hidden="true">℘</span> Papiro</h1><span id="count">0 libros</span></header>
 <main>
 
 <section id="t-scan"><div class="section-hero hero-scan"><div class="hero-shade"></div><div class="hero-title"><span>CATÁLOGO PERSONAL</span><h2>Cargar libros</h2><p>Tu colección, organizada a tu manera.</p></div></div>
@@ -133,7 +135,6 @@ p.h{color:#c5b8c0;line-height:1.5}
   </div>
 
   <div class="card" id="formcard" hidden>
-    <img id="cover" alt="" hidden>
     <h2 id="formtitle">Datos del libro</h2>
     <p class="h">Revisá y corregí lo que haga falta.</p>
     <div class="row">
@@ -143,7 +144,7 @@ p.h{color:#c5b8c0;line-height:1.5}
     <button class="btn sec" id="btn-quitar-foto" hidden>Quitar portada</button>
     <div class="row"><button class="btn sec" id="btn-foto-contra">📷 Foto de contratapa (opcional)</button><button class="btn sec" id="btn-quitar-contra" hidden>Quitar contratapa</button></div>
     <input type="file" id="foto-contra" accept="image/*" capture="environment" hidden>
-    <img id="back-cover" alt="Contratapa" hidden style="max-width:110px;max-height:150px;object-fit:contain;border-radius:8px;margin-top:8px">
+    <div class="photo-pair"><div><img id="cover" alt="Portada" hidden><p class="h">Portada</p></div><div><img id="back-cover" alt="Contratapa" hidden><p class="h">Contratapa</p></div></div>
     <input type="file" id="foto-cam" accept="image/*" capture="environment" hidden>
     <input type="file" id="foto-gal" accept="image/*" hidden>
     <p class="h" style="margin-top:12px">Completar desde una foto:</p>
@@ -154,6 +155,7 @@ p.h{color:#c5b8c0;line-height:1.5}
     <div id="ocr-msg" class="h"></div>
     <div id="ocr-lineas"></div>
     <details id="ocr-det" hidden><summary>Texto leído de la foto</summary><textarea id="ocr-txt" rows="8" readonly></textarea></details>
+    <label for="f-inventario">Número de inventario *</label><input id="f-inventario" placeholder="Ej.: PAP-0001" autocomplete="off"><p class="h">Identifica cada ejemplar físico, incluso si hay varios de la misma obra.</p>
     <label for="f-isbn">ISBN</label><input id="f-isbn" inputmode="numeric">
     <label for="f-titulo">Título *</label><input id="f-titulo">
     <label for="f-autor">Autor</label><input id="f-autor">
@@ -164,7 +166,7 @@ p.h{color:#c5b8c0;line-height:1.5}
       <div><label for="f-paginas">Páginas</label><input id="f-paginas" inputmode="numeric"></div>
       <div><label for="f-idioma">Idioma</label><input id="f-idioma" list="dl-idioma" placeholder="Español" autocomplete="off" value="Español"><datalist id="dl-idioma"></datalist></div>
     </div>
-    <label for="f-genero">Género</label><input id="f-genero" list="dl-genero" placeholder="Elegí uno o escribí otro" autocomplete="off">
+    <label for="f-genero">Materia</label><input id="f-genero" list="dl-genero" placeholder="Elegí uno o escribí otro" autocomplete="off">
     <div class="chips" id="chips-genero"></div><datalist id="dl-genero"></datalist>
     <label for="f-cdd">Clasificación CDD (Dewey)</label><input id="f-cdd" list="dl-cdd" placeholder="Ej: 863" autocomplete="off">
     <p class="h">Número Dewey: elegí de la lista o escribilo completo (ej. 863.6). La lista son los grandes grupos.</p><datalist id="dl-cdd"></datalist>
@@ -186,10 +188,17 @@ p.h{color:#c5b8c0;line-height:1.5}
   </div>
 </section>
 
+<section id="t-loans" hidden><div class="section-hero hero-loans"><div class="hero-shade"></div><div class="hero-title"><span>CIRCULACIÓN</span><h2>Préstamos</h2><p>Lectores, ejemplares, vencimientos y devoluciones.</p></div></div>
+  <div class="card"><h2>Alertas de recuperación</h2><p class="h">Se muestran los préstamos vencidos hace 10 días o más para reclamar la devolución.</p><div id="loan-alerts"></div></div>
+  <div class="card"><h2>Registrar lector</h2><div class="row"><div><label for="r-nombre">Nombre *</label><input id="r-nombre"></div><div><label for="r-apellido">Apellido *</label><input id="r-apellido"></div></div><div class="row"><div><label for="r-dni">DNI *</label><input id="r-dni" inputmode="numeric"></div><div><label for="r-socio">N.º de socio (opcional)</label><input id="r-socio"></div></div><div class="row"><div><label for="r-telefono">Teléfono *</label><input id="r-telefono"></div><div><label for="r-mail">Correo *</label><input id="r-mail" type="email"></div></div><label for="r-direccion">Dirección *</label><input id="r-direccion"><button class="btn" id="r-save">Guardar lector</button><label for="r-select">Lector registrado</label><select id="r-select"><option value="">Seleccionar lector</option></select><div id="reader-info"></div></div>
+  <div class="card"><h2>Registrar préstamo</h2><label for="l-book">Ejemplar (número de inventario)</label><select id="l-book"><option value="">Seleccionar ejemplar disponible</option></select><label for="l-type">Modalidad</label><select id="l-type"><option value="sala">Préstamo en sala</option><option value="domicilio">Préstamo a domicilio</option></select><label for="l-days">Días de préstamo (domicilio: máximo 3)</label><select id="l-days"><option value="1">1 día</option><option value="2">2 días</option><option value="3">3 días</option></select><label class="chk"><input id="l-override" type="checkbox"> Autorizar excepción manual si el lector tiene deuda</label><label for="l-reason">Motivo de la excepción (obligatorio si se autoriza)</label><input id="l-reason" placeholder="Motivo de autorización"><button class="btn" id="l-save">Registrar préstamo</button><p class="h">Un ejemplar por operación. No se permite prestar a un lector con un préstamo pendiente/vencido, salvo autorización manual registrada.</p></div>
+  <div class="card"><h2>Préstamos activos e historial</h2><div id="loans-list"></div></div>
+</section>
+
 <section id="t-more" hidden><div class="section-hero hero-more"><div class="hero-shade"></div><div class="hero-title"><span>RESPALDO Y DATOS</span><h2>Exportar</h2><p>Tu biblioteca también es tuya fuera de Papiro.</p></div></div>
   <div class="card">
     <h2>Exportar lista</h2>
-    <p class="h">Para planillas (Excel) y otros sistemas. Para Aguapey o Koha usá el MARC de más abajo. Columnas: ISBN, Título, Autor, Editorial, Colección, Género, CDD, Año, Páginas, Idioma, Ubicación, Notas, Resumen.</p>
+    <p class="h">Para planillas (Excel) y otros sistemas. Para Aguapey o Koha usá el MARC de más abajo. Columnas: inventario, ISBN, Título, Autor, Editorial, Colección, Materia, CDD, Año, Páginas, Idioma, Ubicación, Notas, Resumen.</p>
     <button class="btn" id="x-csv">Descargar CSV (separador ;)</button>
     <button class="btn sec" id="x-csv2">Descargar CSV (separador ,)</button>
     <button class="btn sec" id="x-xl">CSV para abrir en Excel (ISBN como texto)</button>
@@ -221,7 +230,7 @@ p.h{color:#c5b8c0;line-height:1.5}
   <div class="card stats-card">
     <div class="total-books"><span>Total de libros</span><strong id="stats-total">0</strong></div>
     <label for="stats-mode">Agrupar por</label>
-    <select id="stats-mode"><option value="genero">Género / clasificación</option><option value="cdd">Nomenclatura CDD (Dewey)</option><option value="coleccion">Colección</option><option value="idioma">Idioma</option><option value="editorial">Editorial</option></select>
+    <select id="stats-mode"><option value="genero">Materia</option><option value="cdd">Nomenclatura CDD (Dewey)</option><option value="coleccion">Colección</option><option value="idioma">Idioma</option><option value="editorial">Editorial</option></select>
     <div id="stats-chart" class="stats-chart"></div>
   </div>
 </section>
@@ -230,6 +239,7 @@ p.h{color:#c5b8c0;line-height:1.5}
 <nav>
   <button data-t="scan" class="on">＋ <span>Cargar</span></button>
   <button data-t="lib">▤ <span>Biblioteca</span></button>
+  <button data-t="loans">⇄ <span>Préstamos</span></button>
   <button data-t="stats">▥ <span>Gráficos</span></button>
   <button data-t="more">⇧ <span>Exportar</span></button>
 </nav>
@@ -237,8 +247,8 @@ p.h{color:#c5b8c0;line-height:1.5}
 <script>
 const $ = s => document.querySelector(s);
 const KEY = 'papiro_biblioteca_v2', CFG = 'papiro_biblioteca_cfg';
-const F = ['isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas'];
-let libros = [], editId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
+const F = ['inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas'];
+let libros = [], lectores = [], prestamos = [], editId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
 
 /* Almacenamiento en IndexedDB (aguanta muchas fotos); migra lo viejo de localStorage */
 function idb() { return new Promise((ok, no) => { const r = indexedDB.open('biblioteca_db', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); }); }
@@ -251,12 +261,13 @@ async function init() {
     try { v = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { v = []; }
     if (v.length) idbSet('libros', v).catch(() => {});
   }
-  libros = v; updateCount();
+  libros = v; lectores = (await idbGet('lectores').catch(()=>[])) || []; prestamos = (await idbGet('prestamos').catch(()=>[])) || []; updateCount(); renderLoans();
 }
 try { const c = JSON.parse(localStorage.getItem(CFG) || '{}'); $('#def-ubic').value = c.ubic || ''; $('#def-col').value = c.col || ''; $('#quick').checked = !!c.quick; } catch (e) {}
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 
 function persist() { idbSet('libros', libros).catch(e => alert('No se pudo guardar: ' + (e && e.message))); }
+function persistLoans(){idbSet('lectores',lectores);idbSet('prestamos',prestamos);renderLoans();}
 function saveCfg() { try { localStorage.setItem(CFG, JSON.stringify({ ubic: $('#def-ubic').value, col: $('#def-col').value, quick: $('#quick').checked })); } catch (e) {} }
 function updateCount() { $('#count').textContent = libros.length + (libros.length === 1 ? ' libro' : ' libros'); }
 function status(t, cls) { const s = $('#status'); s.textContent = t; s.className = cls || ''; }
@@ -270,6 +281,7 @@ function tab(n) {
   if (n !== 'scan') stopCam();
   if (n === 'lib') renderList();
   if (n === 'stats') renderStats();
+  if (n === 'loans') renderLoans();
   window.scrollTo(0, 0);
 }
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => tab(b.dataset.t));
@@ -785,6 +797,8 @@ function limpiar(keepStatus) {
 function guardarLibro(auto) {
   const o = readForm();
   if (!o.titulo) { alert('Falta el título'); return false; }
+  if (!o.inventario) { alert('Ingresá el número de inventario del ejemplar.'); return false; }
+  if (libros.some(x => x.inventario && x.inventario.toLowerCase() === o.inventario.toLowerCase() && x.id !== editId)) { alert('Ese número de inventario ya existe. Cada ejemplar debe tener uno distinto.'); return false; }
   if (editId) {
     const i = libros.findIndex(x => x.id === editId);
     if (i >= 0) libros[i] = Object.assign({}, libros[i], o);
@@ -882,19 +896,19 @@ $('#quick').addEventListener('change', saveCfg);
 /* ---------- Lista ---------- */
 function renderList() {
   const q = norm($('#q').value);
-  const res = libros.filter(b => !q || norm([b.titulo, b.autor, b.editorial, b.coleccion, b.genero, b.cdd, b.resumen, b.isbn, b.ubicacion].join(' ')).includes(q));
+  const res = libros.filter(b => !q || norm([b.titulo, b.autor, b.editorial, b.coleccion, b.genero, b.cdd, b.resumen, b.isbn, b.ubicacion, b.inventario].join(' ')).includes(q));
   $('#list').innerHTML = res.length ? res.map(b =>
     '<div class="item" data-id="' + esc(b.id) + '">' +
     (b.portada ? '<img loading="lazy" src="' + esc(b.portada) + '" alt="">' : '<div class="ph"></div>') +
     '<div><b>' + esc(b.titulo) + '</b><small>' + esc([b.autor, b.editorial, b.anio].filter(Boolean).join(' · ')) + '</small>' +
-    '<small>' + esc([b.coleccion, b.genero, b.cdd ? 'CDD ' + b.cdd : '', b.isbn, b.ubicacion].filter(Boolean).join(' · ')) + '</small></div></div>'
+    '<small>' + esc([b.coleccion, b.genero ? 'Materia: '+b.genero : '', b.cdd ? 'CDD ' + b.cdd : '', b.inventario ? 'Inv. '+b.inventario : '', b.isbn, b.ubicacion].filter(Boolean).join(' · ')) + '</small></div></div>'
   ).join('') : '<p class="h">' + (libros.length ? 'Sin resultados.' : 'Todavía no cargaste libros.') + '</p>';
 }
 $('#q').addEventListener('input', renderList);
 $('#list').addEventListener('click', e => { const it = e.target.closest('.item'); if (it) editar(it.dataset.id); });
 
 /* ---------- Exportar ---------- */
-const COLS = [['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Género', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen']];
+const COLS = [['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen']];
 function csv(sep, excel) {
   const q = (v, isIsbn) => {
     v = String(v == null ? '' : v);
@@ -932,17 +946,18 @@ function marcExport(ext) {
 $('#m-iso').onclick = () => marcExport('iso');
 $('#m-mrc').onclick = () => marcExport('mrc');
 $('#m-xml').onclick = () => marcExport('xml');
-$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(libros), 'application/json');
+$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({version:2,libros,lectores,prestamos}), 'application/json');
 $('#b-imp').onclick = () => $('#b-file').click();
 $('#b-file').onchange = async e => {
   const f = e.target.files[0]; if (!f) return;
   try {
-    const arr = JSON.parse(await f.text());
+    const data = JSON.parse(await f.text());
+    const arr = Array.isArray(data) ? data : data.libros;
     if (!Array.isArray(arr)) throw new Error('formato inválido');
     const ids = new Set(libros.map(x => x.id));
     const nuevos = arr.filter(x => x && x.titulo && x.id && !ids.has(x.id));
     if (!confirm('Se van a agregar ' + nuevos.length + ' libros nuevos (se omiten los repetidos). ¿Seguir?')) return;
-    libros = libros.concat(nuevos); persist(); updateCount(); alert('Listo: ' + nuevos.length + ' libros agregados.');
+    libros = libros.concat(nuevos); if(!Array.isArray(data)){const rids=new Set(lectores.map(x=>x.id));lectores=lectores.concat((data.lectores||[]).filter(x=>!rids.has(x.id)));const pids=new Set(prestamos.map(x=>x.id));prestamos=prestamos.concat((data.prestamos||[]).filter(x=>!pids.has(x.id)));persistLoans();} persist(); updateCount(); alert('Listo: ' + nuevos.length + ' libros agregados.');
   } catch (err) { alert('No se pudo importar: ' + err.message); }
   e.target.value = '';
 };
@@ -952,10 +967,32 @@ $('#b-clear').onclick = () => {
 };
 
 
+/* ---------- Lectores y préstamos (almacenamiento local) ---------- */
+function fechaISO(d){return d.toISOString().slice(0,10)}
+function lectorNombre(r){return [r.nombre,r.apellido].filter(Boolean).join(' ')}
+function deudaLector(id){return prestamos.filter(p=>p.lectorId===id&&!p.devolucion).length}
+function vencido(p){return !p.devolucion && p.tipo==='domicilio' && p.vencimiento < fechaISO(new Date())}
+function renderLoans(){
+ if(!$('#r-select')) return;
+ const sel=$('#r-select'), old=sel.value;
+ sel.innerHTML='<option value="">Seleccionar lector</option>'+lectores.map(r=>'<option value="'+esc(r.id)+'">'+esc(lectorNombre(r)+' · DNI '+r.dni)+'</option>').join(''); if(lectores.some(r=>r.id===old))sel.value=old;
+ const bookSel=$('#l-book'), prev=bookSel.value;
+ const ocupados=new Set(prestamos.filter(p=>!p.devolucion).map(p=>p.libroId));
+ bookSel.innerHTML='<option value="">Seleccionar ejemplar disponible</option>'+libros.filter(b=>!ocupados.has(b.id)).map(b=>'<option value="'+esc(b.id)+'">'+esc((b.inventario||'SIN INVENTARIO')+' — '+b.titulo+' ('+(b.autor||'sin autor')+')')+'</option>').join(''); if([...bookSel.options].some(o=>o.value===prev))bookSel.value=prev;
+ const alertas=prestamos.filter(p=>vencido(p)&&Math.floor((new Date(fechaISO(new Date()))-new Date(p.vencimiento+'T00:00:00'))/86400000)>=10);
+ $('#loan-alerts').innerHTML=alertas.length?alertas.map(p=>{const r=lectores.find(x=>x.id===p.lectorId)||{},b=libros.find(x=>x.id===p.libroId)||{};const days=Math.floor((new Date(fechaISO(new Date()))-new Date(p.vencimiento+'T00:00:00'))/86400000);return '<div class="alert"><b>Reclamar devolución · '+days+' días de atraso</b><p>'+esc(lectorNombre(r))+' — '+esc(b.titulo||'Libro eliminado')+' ('+esc(b.inventario||'sin inventario')+')</p><p class="h">Venció: '+esc(p.vencimiento)+' · Tel.: '+esc(r.telefono||'')+'</p></div>'}).join(''):'<p class="h">No hay préstamos con 10 días o más de atraso.</p>';
+ $('#loans-list').innerHTML=prestamos.length?prestamos.slice().reverse().map(p=>{const r=lectores.find(x=>x.id===p.lectorId)||{},b=libros.find(x=>x.id===p.libroId)||{};return '<div class="loan-row"><b>'+esc(b.titulo||'Libro eliminado')+' · '+esc(b.inventario||'sin inventario')+'</b><p>'+esc(lectorNombre(r))+' · '+esc(p.tipo==='sala'?'En sala':'A domicilio')+'</p><p class="h">Préstamo: '+esc(p.fecha)+' · Vencimiento: '+esc(p.vencimiento||'al finalizar la visita')+' · '+(p.devolucion?'Devuelto: '+esc(p.devolucion):vencido(p)?'<b style="color:#ff8585">VENCIDO</b>':'Pendiente')+'</p>'+(p.excepcion?'<p class="h">Excepción autorizada: '+esc(p.motivo||'')+'</p>':'')+(!p.devolucion?'<button class="btn sec" data-return="'+esc(p.id)+'">Registrar devolución</button>':'')+'</div>'}).join(''):'<p class="h">Todavía no hay préstamos.</p>';
+ const rid=sel.value, r=lectores.find(x=>x.id===rid); $('#reader-info').innerHTML=r?'<p class="h">Préstamos pendientes: '+deudaLector(rid)+' · DNI: '+esc(r.dni)+'</p>':'';
+}
+$('#r-save').onclick=()=>{const r={nombre:$('#r-nombre').value.trim(),apellido:$('#r-apellido').value.trim(),dni:$('#r-dni').value.trim(),socio:$('#r-socio').value.trim(),telefono:$('#r-telefono').value.trim(),mail:$('#r-mail').value.trim(),direccion:$('#r-direccion').value.trim()};if(!r.nombre||!r.apellido||!r.dni||!r.telefono||!r.mail||!r.direccion){alert('Completá nombre, apellido, DNI, teléfono, correo y dirección. El número de socio es opcional.');return}if(lectores.some(x=>x.dni===r.dni)){alert('Ya existe un lector con ese DNI.');return}r.id='r'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);lectores.push(r);persistLoans();$('#r-select').value=r.id;alert('Lector guardado.');};
+$('#l-save').onclick=()=>{const rid=$('#r-select').value,bid=$('#l-book').value,type=$('#l-type').value,reader=lectores.find(r=>r.id===rid);if(!reader||!bid){alert('Seleccioná un lector y un ejemplar disponible.');return}const outstanding=prestamos.filter(p=>p.lectorId===rid&&vencido(p));const override=$('#l-override').checked,reason=$('#l-reason').value.trim();if(outstanding.length&&!override){alert('Préstamo bloqueado: el lector tiene un préstamo vencido. Solo el administrador puede autorizar una excepción.');return}if(outstanding.length&&override&&!reason){alert('Indicá el motivo de la excepción manual.');return}const now=new Date(),days=Math.min(3,Math.max(1,Number($('#l-days').value)||1)),due=new Date(now);due.setDate(due.getDate()+(type==='sala'?0:days));prestamos.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),lectorId:rid,libroId:bid,tipo:type,dias:type==='sala'?0:days,fecha:fechaISO(now),vencimiento:type==='sala'?fechaISO(now):fechaISO(due),devolucion:'',excepcion:outstanding.length&&override,motivo:outstanding.length&&override?reason:''});$('#l-override').checked=false;$('#l-reason').value='';persistLoans();alert('Préstamo registrado.');};
+$('#r-select').addEventListener('change',renderLoans);$('#l-type').addEventListener('change',()=>{$('#l-days').disabled=$('#l-type').value==='sala'});
+$('#loans-list').addEventListener('click',e=>{const b=e.target.closest('[data-return]');if(!b)return;const p=prestamos.find(x=>x.id===b.dataset.return);if(!p||p.devolucion)return;if(confirm('¿Confirmás la devolución de este ejemplar?')){p.devolucion=fechaISO(new Date());persistLoans();}});
+
 function renderStats() {
   $('#stats-total').textContent = libros.length;
   const modo = $('#stats-mode').value;
-  const labels = {genero:'Sin clasificar', cdd:'Sin CDD', coleccion:'Sin colección', idioma:'Sin idioma', editorial:'Sin editorial'};
+  const labels = {genero:'Sin materia', cdd:'Sin CDD', coleccion:'Sin colección', idioma:'Sin idioma', editorial:'Sin editorial'};
   const map = new Map();
   libros.forEach(b => {
     let v = String(b[modo] || '').trim() || labels[modo];

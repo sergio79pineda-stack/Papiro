@@ -1,23 +1,24 @@
-# Papiro — Biblioteca personal
+# Papiro — Biblioteca y préstamos
 
-Aplicación web progresiva (PWA) para administrar una biblioteca personal.
-
-## Archivos
-- `index.html`: aplicación y estilos.
-- `manifest.json`: configuración para instalar como aplicación.
-- `sw.js`: caché para funcionamiento básico sin conexión.
-- `icon-192.png` y `icon-512.png`: iconos.
-- `biblioteca-san-francisco.jpg`, `biblioteca-praga.jpg`, `biblioteca-alejandria.jpg`: fondos de las secciones.
+Aplicación web progresiva para catalogar libros, guardar portadas y contratapas, gestionar lectores y préstamos, consultar alertas y exportar respaldos.
 
 ## Publicar en GitHub Pages
-1. Subí **todos** estos archivos a la raíz del repositorio, manteniendo los nombres.
-2. En GitHub, abrí **Settings → Pages**.
-3. En *Build and deployment*, elegí desplegar desde la rama principal y la carpeta `/ (root)`.
-4. Esperá la publicación y abrí la URL HTTPS desde el celular.
+1. Subí todos los archivos de esta carpeta a la raíz del repositorio.
+2. En Settings → Pages, elegí la rama principal y la carpeta `/ (root)`.
+3. Abrí la URL publicada desde el navegador. La cámara requiere HTTPS o localhost.
 
-La cámara requiere HTTPS (GitHub Pages lo ofrece) o localhost. Para instalarla en Android, abrí la URL en Chrome y usá el menú **Instalar aplicación** o **Agregar a pantalla principal**. Para generar una APK más adelante se puede empaquetar esta PWA con una herramienta compatible; no hace falta hacerlo ahora.
+## Almacenamiento y respaldos
+Los datos se guardan localmente en IndexedDB del navegador. En Exportar, usá **Descargar copia (JSON)** periódicamente y guardá el archivo fuera del dispositivo. El respaldo incluye libros, lectores y préstamos. La importación agrega registros que no existan; no es una sincronización bidireccional ni una fusión automática de conflictos.
 
-## Datos y fotos
-Los datos se guardan localmente en el navegador del dispositivo, no se sincronizan automáticamente entre teléfonos. Usá **Exportar → Descargar copia (JSON)** para respaldarlos y restaurarlos en otro dispositivo. Las imágenes de portada y contratapa se reducen y guardan dentro de los datos de Papiro; las fotos elegidas solo para OCR se procesan para extraer texto y no se agregan al catálogo ni se descargan como archivos de foto.
+## Préstamos
+Cada ejemplar requiere un número de inventario único. Los lectores se registran con nombre, apellido, DNI, teléfono, correo y dirección; el número de socio es opcional. El sistema bloquea nuevos préstamos si el lector tiene préstamos a domicilio vencidos, salvo excepción manual con motivo. Los préstamos a domicilio admiten hasta tres días. Las alertas de recuperación aparecen a partir de diez días de atraso.
 
-**Importante:** borrar los datos del navegador puede borrar la biblioteca local. Hacé copias de seguridad periódicas.
+## Límites actuales
+- No incluye todavía sincronización automática con Google Drive ni inicio de sesión con Google. Eso requiere configurar OAuth, un proyecto de Google Cloud y permisos de Drive; no deben incrustarse secretos en un repositorio público.
+- No sincroniza automáticamente entre navegador, Android y computadoras. Importar/exportar sirve para traslado y respaldo, no para mantener dispositivos sincronizados.
+- Los datos locales pueden perderse si se borran los datos del sitio o se pierde el dispositivo. Conservá copias externas.
+- La comunidad de intercambio, cuentas multiusuario y permisos remotos no están incluidos en esta versión.
+- La versión web está preparada para probarse como PWA; la APK nativa requiere empaquetado y pruebas específicos.
+
+## Seguridad y privacidad
+La ficha de lectores contiene datos personales. No publiques ni compartas respaldos sin protegerlos. Esta versión guarda los datos localmente en el dispositivo y no ofrece acceso remoto multiusuario.
