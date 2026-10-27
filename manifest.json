@@ -1,0 +1,32 @@
+{
+  "name": "Papiro — Biblioteca personal",
+  "short_name": "Papiro",
+  "description": "Tu biblioteca personal: catálogo, búsqueda, estadísticas y exportación de libros.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#09090c",
+  "theme_color": "#09090c",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
