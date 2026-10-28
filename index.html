@@ -68,7 +68,7 @@ header span{font-size:13px;color:#ffc2dd}
 main{padding:0 0 24px;max-width:1200px;margin:0 auto}
 section{padding:0 clamp(12px,3vw,30px)}
 .section-hero{height:clamp(210px,31vw,360px);margin:0 calc(clamp(12px,3vw,30px) * -1) 22px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end;overflow:hidden;border-bottom:2px solid #f06aa8}
-.hero-loans{background-image:linear-gradient(135deg,#301022,#08080c 45%,#70234b)}.hero-scan{background-image:url('biblioteca-san-francisco.jpg')}.hero-lib{background-image:url('biblioteca-praga.jpg')}.hero-more,.hero-stats{background-image:url('biblioteca-alejandria.jpg')}
+.hero-loans{background-image:url('biblioteca-alejandria-prestamos.jpg')}.hero-scan{background-image:url('biblioteca-san-francisco.jpg')}.hero-lib{background-image:url('biblioteca-praga.jpg')}.hero-more{background-image:url('biblioteca-alejandria-atras.jpg')}.hero-stats{background-image:url('biblioteca-alejandria.jpg')}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.83),rgba(0,0,0,.3) 75%),linear-gradient(0deg,rgba(0,0,0,.65),transparent 80%)}
 .hero-title{position:relative;padding:clamp(18px,4vw,42px);max-width:850px}
 .hero-title span{font-size:11px;letter-spacing:.22em;color:#ffacd1;font-weight:800}
@@ -160,7 +160,7 @@ p.h{color:#c5b8c0;line-height:1.5}
     <label for="f-inventario">Número de inventario *</label><div class="isbnrow"><span style="display:flex;align-items:center;padding:0 12px;border:1px solid #6f5261;border-radius:11px;background:#171017;color:#ffadd1;font-weight:800">PAP-</span><input id="f-inventario" placeholder="0001" autocomplete="off" aria-label="Número correlativo de inventario, sin el prefijo PAP-"></div><p class="h">PAP- es un prefijo interno de Papiro, no una norma bibliotecaria oficial. Escribí el número: 14 se guardará como PAP-0014; los números de más de 4 cifras se conservan completos.</p>
     <label for="f-isbn">ISBN</label><input id="f-isbn" inputmode="numeric">
     <label for="f-titulo">Título *</label><input id="f-titulo">
-    <label for="f-autor">Autor</label><input id="f-autor">
+    <label for="f-autor">Autor</label><input id="f-autor" placeholder="Apellido, Nombre; Apellido, Nombre"> <p class="h">Formato bibliotecario recomendado: primero el apellido, coma y luego el nombre. Ej.: Borges, Jorge Luis.</p>
     <label for="f-editorial">Editorial</label><input id="f-editorial">
     <label for="f-coleccion">Colección</label><input id="f-coleccion" placeholder="Ej: Grandes éxitos de la novela histórica">
     <div class="row">
@@ -170,11 +170,18 @@ p.h{color:#c5b8c0;line-height:1.5}
     </div>
     <label for="f-genero">Materia</label><input id="f-genero" list="dl-genero" placeholder="Elegí uno o escribí otro" autocomplete="off">
     <div class="chips" id="chips-genero"></div><datalist id="dl-genero"></datalist>
-    <label for="f-cdd">Clasificación CDD (Dewey)</label><input id="f-cdd" list="dl-cdd" placeholder="Ej: 863" autocomplete="off">
-    <p class="h">Número Dewey: elegí de la lista o escribilo completo (ej. 863.6). La lista son los grandes grupos.</p><datalist id="dl-cdd"></datalist>
+    <label for="f-cdd">Clasificación CDD (Dewey)</label><input id="f-cdd" list="dl-cdd" placeholder="Ej: 863.6" autocomplete="off">
+    <p class="h">Elegí primero una clase principal y, si corresponde, una subclase. También puede escribir un número Dewey más específico en el campo.</p>
+    <div class="row"><div><label for="cdd-principal">Clase principal</label><select id="cdd-principal"><option value="">Seleccionar clase (000–900)</option></select></div><div><label for="cdd-sub">Subclase</label><select id="cdd-sub" disabled><option value="">Primero seleccione una clase</option></select></div></div>
+    <div id="cdd-grid" class="chips cdd-grid" aria-label="Clases principales Dewey"></div><datalist id="dl-cdd"></datalist>
     <label for="f-ubicacion">Ubicación</label><input id="f-ubicacion" placeholder="Ej: Living, estante 2">
     <label for="f-resumen">Resumen</label><textarea id="f-resumen" rows="5" placeholder="Escribilo o leelo de la contratapa con la cámara"></textarea>
     <label for="f-notas">Notas</label><textarea id="f-notas" rows="2"></textarea>
+    <div class="card" style="margin-top:14px"><h3>Campos bibliográficos adicionales</h3><p class="h">Active solo los campos que necesite completar.</p>
+      <label class="chk"><input type="checkbox" id="extra-colaboradores-toggle"> Incluir colaboradores</label><div id="extra-colaboradores-wrap" hidden><label for="f-colaboradores">Colaboradores (apellido, nombre; separados por punto y coma)</label><textarea id="f-colaboradores" rows="2" placeholder="Pérez, Ana; Gómez, Luis"></textarea></div>
+      <label class="chk"><input type="checkbox" id="extra-premios-toggle"> Incluir premios</label><div id="extra-premios-wrap" hidden><label for="f-premios">Premios y reconocimientos</label><textarea id="f-premios" rows="2"></textarea></div>
+      <label class="chk"><input type="checkbox" id="extra-agradecimientos-toggle"> Incluir agradecimientos</label><div id="extra-agradecimientos-wrap" hidden><label for="f-agradecimientos">Agradecimientos</label><textarea id="f-agradecimientos" rows="3"></textarea></div>
+    </div>
     <button class="btn" id="btn-save">Guardar libro</button>
     <div class="row">
       <button class="btn sec" id="btn-cancel">Cancelar</button>
@@ -251,7 +258,7 @@ p.h{color:#c5b8c0;line-height:1.5}
 <script>
 const $ = s => document.querySelector(s);
 const KEY = 'papiro_biblioteca_v2', CFG = 'papiro_biblioteca_cfg';
-const F = ['inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas'];
+const F = ['inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas','colaboradores','premios','agradecimientos'];
 let libros = [], lectores = [], prestamos = [], expurgos = [], editId = null, detailId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
 
 /* Almacenamiento en IndexedDB (aguanta muchas fotos); migra lo viejo de localStorage */
@@ -428,7 +435,7 @@ function setCover(u) {
   $('#btn-quitar-foto').hidden = !u;
 }
 function setBackCover(u) { const i = $('#back-cover'); i.dataset.src = u || ''; if (u) { i.src = u; i.hidden = false; } else { i.removeAttribute('src'); i.hidden = true; } $('#btn-quitar-contra').hidden = !u; }
-function fill(d) { F.forEach(k => { if (d[k] !== undefined) $('#f-' + k).value = k === 'inventario' ? String(d[k]||'').replace(/^PAP-/i,'') : d[k]; }); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); }
+function fill(d) { F.forEach(k => { if (d[k] !== undefined && $('#f-' + k)) $('#f-' + k).value = k === 'inventario' ? String(d[k]||'').replace(/^PAP-/i,'') : d[k]; }); ['colaboradores','premios','agradecimientos'].forEach(k=>{const on=!!String(d[k]||'').trim();$('#extra-'+k+'-toggle').checked=on;$('#extra-'+k+'-wrap').hidden=!on;}); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); sincronizarCDD(); }
 
 /* ---------- Lectura de la página legal (OCR) ---------- */
 function isbnValido(c) {
@@ -530,6 +537,7 @@ function aCapitalizada(t, modo) { // modo 'oracion' (título) o 'nombre'
   if (modo === 'nombre') return low.split(' ').map((w, i) => (i > 0 && PARTICULAS.test(w)) ? w : w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   return low.charAt(0).toUpperCase() + low.slice(1);
 }
+function formatearAutor(nombre) { const n=String(nombre||'').trim().replace(/\s+/g,' '); if(!n || n.includes(',')) return n; const partes=n.split(' '); if(partes.length<2) return n; return partes.slice(-1).join(' ') + ', ' + partes.slice(0,-1).join(' '); }
 function parsePortada(lines) { // lines: [{ t: texto, h: alto en px, confidence: confianza OCR }]
   const L = lines.map(l => ({ t: String(l.t).replace(/\s+/g, ' ').trim(), h: l.h || 0, confidence: l.confidence == null ? 100 : l.confidence })).filter(l => {
     const letras = (l.t.match(/\p{L}/gu) || []).length;
@@ -672,7 +680,7 @@ function fotoACanvas(file, max) {
   });
 }
 let ocrModo = 'legal', ocrLineasTxt = [];
-function poner(id, v, nombre, lista) { if (v && !$('#f-' + id).value.trim()) { $('#f-' + id).value = v; lista.push(nombre); } }
+function poner(id, v, nombre, lista, reemplazar=false) { if (v && (reemplazar || !$('#f-' + id).value.trim())) { $('#f-' + id).value = v; lista.push(nombre); } }
 async function ocrLegal(txt) {
   const p = parsePagina(txt), hallados = [];
   if (p.isbnRaw) poner('isbn', p.isbnOk ? cleanIsbn(p.isbnRaw) : p.isbnRaw, 'ISBN', hallados);
@@ -710,8 +718,9 @@ function ocrPortada(r) {
   // Solo completar campos cuando la lectura sea razonablemente clara; nunca inventar combinaciones.
   const tituloOk = p.titulo && (p.titulo.match(/\p{L}/gu)||[]).length >= 4 && p.titulo.length < 110;
   const autorOk = p.autor && (p.autor.match(/\p{L}/gu)||[]).length >= 4 && p.autor.length < 65;
-  if(tituloOk) poner('titulo',p.titulo,'título',hallados);
-  if(autorOk) poner('autor',p.autor,'autor',hallados);
+  // Una nueva lectura válida reemplaza los valores anteriores para corregir lecturas OCR equivocadas.
+  if(tituloOk) poner('titulo',p.titulo,'título',hallados,true);
+  if(autorOk) poner('autor',formatearAutor(p.autor),'autor',hallados,true);
   if(!hallados.length){$('#ocr-lineas').innerHTML='';$('#ocr-det').hidden=true;$('#ocr-txt').value='';ocrMsg('No se pudo identificar título o autor con suficiente confianza. No se modificaron los campos. Probá otra foto o cargalos a mano.','err');return;}
   $('#ocr-lineas').innerHTML=''; $('#ocr-det').hidden=true; $('#ocr-txt').value='';
   ocrMsg('Lectura tentativa de '+hallados.join(' y ')+'. Revisá los campos antes de guardar; si no coinciden, corregilos manualmente.','ok');
@@ -800,7 +809,8 @@ async function buscarTitulo(q) {
 }
 function readForm() { const o = {}; F.forEach(k => o[k] = $('#f-' + k).value.trim()); o.inventario = o.inventario ? (()=>{let n=o.inventario.replace(/^PAP-/i,'').replace(/\s/g,'');if(!/^\d+$/.test(n))return n; n=n.replace(/^0+(?=\d)/,'');return 'PAP-'+n.padStart(4,'0')})() : ''; o.portada = $('#cover').dataset.src || ''; o.contratapa = $('#back-cover').dataset.src || ''; return o; }
 function limpiar(keepStatus) {
-  F.forEach(k => $('#f-' + k).value = '');
+  F.forEach(k => { if ($('#f-' + k)) $('#f-' + k).value = ''; });
+  ['colaboradores','premios','agradecimientos'].forEach(k=>{ $('#extra-'+k+'-toggle').checked=false; $('#extra-'+k+'-wrap').hidden=true; });
   $('#f-ubicacion').value = $('#def-ubic').value;
   $('#f-coleccion').value = $('#def-col').value;
   $('#ocr-msg').textContent = ''; $('#ocr-det').hidden = true; $('#ocr-txt').value = ''; $('#ocr-lineas').innerHTML = ''; marcarChips();
@@ -903,6 +913,31 @@ $('#dl-idioma').innerHTML = IDIOMAS.map(x => '<option value="'+esc(x)+'"></optio
 if (!$('#f-idioma').value) $('#f-idioma').value = 'Español';
 /* Género (botones) y CDD (lista de sugerencias) */
 $('#dl-cdd').innerHTML = DEWEY.map(d => '<option value="' + d[0] + '" label="' + esc(d[1]) + '"></option>').join('');
+const DEWEY_MAIN = [
+ ['000','Generalidades, información e informática'],['100','Filosofía y psicología'],['200','Religión'],['300','Ciencias sociales'],['400','Lenguas'],['500','Ciencias naturales y matemáticas'],['600','Tecnología y ciencias aplicadas'],['700','Artes, recreación y deportes'],['800','Literatura'],['900','Historia y geografía']
+];
+const DEWEY_SUB = {
+'000':['000 Generalidades','010 Bibliografías','020 Bibliotecología','030 Enciclopedias','040 (sin asignación habitual)','050 Publicaciones seriadas','060 Organizaciones y museología','070 Periodismo y medios','080 Colecciones generales','090 Manuscritos y libros raros'],
+'100':['100 Filosofía','110 Metafísica','120 Epistemología','130 Parapsicología','140 Escuelas filosóficas','150 Psicología','160 Lógica','170 Ética','180 Filosofía antigua y oriental','190 Filosofía moderna'],
+'200':['200 Religión','210 Filosofía de la religión','220 Biblia','230 Cristianismo','240 Teología moral','250 Iglesia local y órdenes','260 Teología social','270 Historia del cristianismo','280 Denominaciones cristianas','290 Otras religiones'],
+'300':['300 Ciencias sociales','310 Estadística','320 Ciencia política','330 Economía','340 Derecho','350 Administración pública','360 Servicios sociales','370 Educación','380 Comercio y comunicaciones','390 Costumbres y folclore'],
+'400':['400 Lenguas','410 Lingüística','420 Inglés','430 Alemán','440 Francés','450 Italiano y rumano','460 Español y portugués','470 Latín','480 Griego','490 Otras lenguas'],
+'500':['500 Ciencias naturales','510 Matemáticas','520 Astronomía','530 Física','540 Química','550 Ciencias de la Tierra','560 Paleontología','570 Biología','580 Botánica','590 Zoología'],
+'600':['600 Tecnología','610 Medicina y salud','620 Ingeniería','630 Agricultura','640 Economía doméstica','650 Administración','660 Ingeniería química','670 Manufactura','680 Manufacturas específicas','690 Construcción'],
+'700':['700 Artes','710 Urbanismo y paisaje','720 Arquitectura','730 Escultura','740 Dibujo y artes decorativas','750 Pintura','760 Artes gráficas','770 Fotografía','780 Música','790 Artes escénicas y recreativas'],
+'800':['800 Literatura','810 Literatura estadounidense','820 Literatura inglesa','830 Literatura alemana','840 Literatura francesa','850 Literatura italiana y rumana','860 Literatura española y portuguesa','870 Literatura latina','880 Literatura griega','890 Otras literaturas'],
+'900':['900 Historia y geografía','910 Geografía y viajes','920 Biografías','930 Historia antigua','940 Historia de Europa','950 Historia de Asia','960 Historia de África','970 Historia de América del Norte','980 Historia de América del Sur','990 Historia de otras áreas']
+};
+function cargarSubCDD(principal, elegido=''){ const sel=$('#cdd-sub'); sel.innerHTML='<option value="">Seleccionar subclase (opcional)</option>'; (DEWEY_SUB[principal]||[]).forEach(t=>{const code=t.slice(0,3);const o=document.createElement('option');o.value=code;o.textContent=t;sel.appendChild(o)});sel.disabled=!principal;if(elegido)sel.value=elegido; }
+function sincronizarCDD(){const v=String($('#f-cdd').value||'').trim();const m=v.match(/^(\d{3})/);if(m){const base=String(Math.floor(Number(m[1])/100)*100).padStart(3,'0');$('#cdd-principal').value=base;cargarSubCDD(base,m[1]);} }
+$('#cdd-principal').innerHTML += DEWEY_MAIN.map(d=>'<option value="'+d[0]+'">'+d[0]+' — '+esc(d[1])+'</option>').join('');
+$('#cdd-grid').innerHTML=DEWEY_MAIN.map(d=>'<button type="button" class="btn sec" data-cdd-main="'+d[0]+'">'+d[0]+'<br><small>'+esc(d[1])+'</small></button>').join('');
+$('#cdd-principal').addEventListener('change',e=>{cargarSubCDD(e.target.value);if(e.target.value)$('#f-cdd').value=e.target.value;});
+$('#cdd-sub').addEventListener('change',e=>{if(e.target.value)$('#f-cdd').value=e.target.value;});
+$('#cdd-grid').addEventListener('click',e=>{const b=e.target.closest('[data-cdd-main]');if(!b)return;const v=b.dataset.cddMain;$('#cdd-principal').value=v;cargarSubCDD(v);$('#f-cdd').value=v;});
+$('#f-cdd').addEventListener('input',sincronizarCDD);
+['colaboradores','premios','agradecimientos'].forEach(k=>$('#extra-'+k+'-toggle').addEventListener('change',e=>{$('#extra-'+k+'-wrap').hidden=!e.target.checked;if(!e.target.checked)$('#f-'+k).value='';}));
+
 $('#dl-genero').innerHTML = GENEROS.map(g => '<option value="' + esc(g) + '"></option>').join('');
 $('#chips-genero').innerHTML = GENEROS.map(g => '<button type="button" data-g="' + esc(g) + '">' + esc(g) + '</button>').join('');
 function marcarChips() { const v = $('#f-genero').value.trim(); document.querySelectorAll('#chips-genero button').forEach(b => b.classList.toggle('on', b.dataset.g === v)); }
@@ -925,7 +960,7 @@ $('#q').addEventListener('input', renderList);
 function verLibro(id) {
  const b=libros.find(x=>x.id===id); if(!b)return; detailId=id;
  $('#detail-title').textContent=b.titulo||'Ficha del libro';
- const fields=[['Número de inventario',b.inventario],['ISBN',b.isbn],['Autor',b.autor],['Editorial',b.editorial],['Colección',b.coleccion],['Materia',b.genero],['Clasificación CDD',b.cdd ? (String(b.cdd).match(/^\d{3}/)?.[0] || b.cdd) + ' — ' + ((DEWEY.find(d=>d[0]===String(b.cdd).match(/^\d{3}(?:\.\d+)?/)?.[0]) || DEWEY.find(d=>d[0]===String(b.cdd).slice(0,3)) || ['', 'Descripción no disponible'])[1]) : ''],['Año',b.anio],['Páginas',b.paginas],['Idioma',b.idioma],['Ubicación',b.ubicacion],['Resumen',b.resumen],['Notas',b.notas]];
+ const fields=[['Número de inventario',b.inventario],['ISBN',b.isbn],['Autor',b.autor],['Editorial',b.editorial],['Colección',b.coleccion],['Materia',b.genero],['Clasificación CDD',b.cdd ? (String(b.cdd).match(/^\d{3}/)?.[0] || b.cdd) + ' — ' + ((DEWEY.find(d=>d[0]===String(b.cdd).match(/^\d{3}(?:\.\d+)?/)?.[0]) || DEWEY.find(d=>d[0]===String(b.cdd).slice(0,3)) || ['', 'Descripción no disponible'])[1]) : ''],['Año',b.anio],['Páginas',b.paginas],['Idioma',b.idioma],['Ubicación',b.ubicacion],['Resumen',b.resumen],['Notas',b.notas],['Colaboradores',b.colaboradores],['Premios',b.premios],['Agradecimientos',b.agradecimientos]];
  $('#detail-body').innerHTML='<div class="detail-images">'+(b.portada?'<div><img src="'+esc(b.portada)+'" alt="Portada"><p>Portada</p></div>':'<div><div class="ph"></div><p>Portada no cargada</p></div>')+(b.contratapa?'<div><img src="'+esc(b.contratapa)+'" alt="Contratapa"><p>Contratapa</p></div>':'<div><div class="ph"></div><p>Contratapa no cargada</p></div>')+'</div><div class="book-detail-view" style="margin-top:14px">'+fields.map(([k,v])=>'<div><small style="display:block;color:#ffadd1;font-weight:800">'+esc(k)+'</small><div style="white-space:pre-wrap">'+esc(v||'—')+'</div></div>').join('')+'</div>';
  $('#book-detail-card').hidden=false; $('#book-detail-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -936,7 +971,7 @@ $('#detail-duplicate').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x
 $('#detail-expunge').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x.id===detailId);if(!b)return;const motivo=prompt('Motivo del expurgo (venta, rotura, pérdida, descarte u otro):');if(motivo===null)return;if(!motivo.trim()){alert('Indicá el motivo de la baja para registrar el expurgo.');return;}if(!confirm('¿Dar de baja «'+b.titulo+'» del catálogo? Se conservará el registro de expurgo.'))return;expurgos.push({id:b.id,inventario:b.inventario||'',titulo:b.titulo||'',autor:b.autor||'',motivo:motivo.trim(),fecha:fechaISO(new Date())});libros=libros.filter(x=>x.id!==b.id);persist();persistLoans();updateCount();renderList();$('#book-detail-card').hidden=true;detailId=null;alert('Libro dado de baja y expurgo registrado.');};
 
 /* ---------- Exportar ---------- */
-const COLS = [['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen']];
+const COLS = [['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen'], ['Colaboradores','colaboradores'], ['Premios','premios'], ['Agradecimientos','agradecimientos']];
 function csv(sep, excel) {
   const q = (v, isIsbn) => {
     v = String(v == null ? '' : v);
