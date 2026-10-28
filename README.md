@@ -25,3 +25,17 @@ Cada ejemplar requiere un número de inventario único con prefijo PAP-. Desde B
 
 ## Seguridad y privacidad
 La ficha de lectores contiene datos personales. No publiques ni compartas respaldos sin protegerlos. Esta versión guarda los datos localmente en el dispositivo y no ofrece acceso remoto multiusuario.
+
+
+## Papiro V4 — mejoras de préstamos e importación
+
+- Titular y marca: © 2026 Sergio Pineda; Papiro es el nombre comercial.
+- `PAP-` es un prefijo interno de inventario de Papiro, no una nomenclatura bibliotecaria oficial. Los números se normalizan a un mínimo de cuatro dígitos y pueden crecer sin límite práctico; se bloquean duplicados.
+- En Préstamos, el buscador filtra ejemplares por título, autor, editorial, colección, materia, CDD, ISBN, ubicación, inventario, resumen y notas. El buscador de lectores filtra por nombre/apellido, DNI o socio. El historial de préstamos también permite buscar por lector, documento, socio, libro o inventario.
+- Las fichas e historial de préstamos muestran los datos de contacto del lector. Se agregaron campos opcionales para escuela/institución, curso, división y turno.
+- Estadísticas incluyen estado de préstamos y préstamos por lector.
+- Hay importadores CSV (separador punto y coma/coma), CSV compatible con Excel, MARC21 ISO/MRC y MARCXML. Las importaciones agregan registros; los inventarios duplicados se omiten. Los registros MARC pueden no incluir número de inventario, por lo que debe asignarse después de importarlos.
+- La clasificación CDD 863 corresponde a narrativa en español (novela y cuentos).
+- La vista de portada/contratapa usa el mismo tamaño de visualización.
+
+Nota: la aplicación sigue guardando datos localmente en el dispositivo. No incluye todavía sincronización automática con Google Drive ni colaboración multiusuario. Los importadores MARC cubren los campos bibliográficos habituales, pero pueden necesitar revisión al intercambiar registros con catálogos de terceros.
