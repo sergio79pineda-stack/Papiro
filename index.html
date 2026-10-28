@@ -209,7 +209,7 @@ p.h{color:#c5b8c0;line-height:1.5}
   </div>
   <div class="card">
     <h2>Para Aguapey y Koha (MARC21)</h2>
-    <p class="h">Aguapey importa MARC21 en formato ISO (.iso). Koha acepta MARC (.mrc) o MARCXML (.xml). Incluyen título, autor, ISBN, editorial, año, colección, género, CDD (campo 082), resumen (520) y ubicación.</p>
+    <p class="h">Aguapey importa MARC21 en formato ISO (.iso). Koha acepta MARC (.mrc) o MARCXML (.xml). MARC conserva metadatos bibliográficos, pero no transporta las imágenes locales de portada/contratapa ni todos los campos propios de Papiro. Para trasladar una biblioteca completa entre dispositivos, usá la copia JSON.</p>
     <label for="marc-enc">Codificación de los acentos</label>
     <select id="marc-enc"><option value="utf8">UTF-8 (recomendado)</option><option value="latin1">ANSI / Latin-1 (programas viejos tipo ISIS)</option></select>
     <button class="btn" id="m-iso">Descargar MARC21 .iso (Aguapey)</button><button class="btn sec" id="i-iso">Cargar MARC21 .iso</button><input type="file" id="i-iso-file" accept=".iso,.mrc,application/octet-stream" hidden>
@@ -218,7 +218,7 @@ p.h{color:#c5b8c0;line-height:1.5}
   </div>
   <div class="card">
     <h2>Copia de seguridad / compartir con otro teléfono</h2>
-    <p class="h">Cada teléfono guarda su propia lista. Para pasar la biblioteca a otro celular, exportá la copia y abrila ahí con "Importar".</p>
+    <p class="h">Cada dispositivo guarda su propia lista. Para trasladar la biblioteca completa entre celular y PC, usá Exportar copia JSON e Importar copia JSON: conserva portada, contratapa, inventario y campos propios de Papiro. MARC21 es para intercambiar metadatos con otros sistemas, no para clonar una biblioteca con imágenes.</p>
     <button class="btn" id="b-exp">Descargar copia (JSON)</button>
     <button class="btn sec" id="b-imp">Importar copia (JSON)</button>
     <input type="file" id="b-file" accept=".json,application/json" hidden>
@@ -581,6 +581,7 @@ function marcCampos(b) {
   const sd = (t, i1, i2, s) => { const ss = s.filter(x => lim(x[1])).map(x => [x[0], lim(x[1])]); if (ss.length) f.push({ t, i1, i2, s: ss }); };
   if (lim(b.isbn)) sd('020', ' ', ' ', [['a', lim(b.isbn).replace(/[^0-9Xx]/g, '')]]);
   if (lim(b.cdd)) sd('082', '0', '4', [['a', lim(b.cdd)]]);
+  if (lim(b.inventario)) sd('952', ' ', ' ', [['p', lim(b.inventario)]]);
   const autores = String(b.autor || '').split(';').map(lim).filter(Boolean);
   autores.forEach((a, i) => sd(i === 0 ? '100' : '700', a.indexOf(',') >= 0 ? '1' : '0', ' ', [['a', a]]));
   const tit = lim(b.titulo), p = tit.indexOf(': ');
@@ -594,7 +595,7 @@ function marcCampos(b) {
   if (lim(b.coleccion)) sd('490', '0', ' ', [['a', lim(b.coleccion)]]);
   if (lim(b.notas)) sd('500', ' ', ' ', [['a', lim(b.notas)]]);
   if (lim(b.resumen)) sd('520', ' ', ' ', [['a', lim(b.resumen).slice(0, 3000)]]);
-  if (lim(b.genero)) sd('655', ' ', '4', [['a', lim(b.genero)]]);
+  if (lim(b.genero)) sd('650', ' ', '0', [['a', lim(b.genero)]]);
   if (lim(b.ubicacion)) sd('852', ' ', ' ', [['c', lim(b.ubicacion)]]);
   const orden = f.map((x, i) => [x, i]).sort((u, v) => (u[0].t < v[0].t ? -1 : u[0].t > v[0].t ? 1 : u[1] - v[1]));
   return orden.map(x => x[0]);
@@ -1023,7 +1024,7 @@ $('#loan-search').addEventListener('input',renderLoans);
 $('#r-dni').setAttribute('maxlength','8');$('#r-dni').setAttribute('pattern','[0-9]{7,8}');$('#r-telefono').setAttribute('inputmode','tel');$('#r-mail').setAttribute('autocomplete','email');
 $('#r-save').onclick=()=>{const r={nombre:$('#r-nombre').value.trim(),apellido:$('#r-apellido').value.trim(),dni:$('#r-dni').value.replace(/\D/g,''),socio:$('#r-socio').value.trim(),telefono:$('#r-telefono').value.trim(),mail:$('#r-mail').value.trim(),direccion:$('#r-direccion').value.trim(),institucion:$('#r-institucion').value.trim(),curso:$('#r-curso').value.trim(),division:$('#r-division').value.trim(),turno:$('#r-turno').value};if(!r.nombre||!r.apellido||!r.dni||!r.telefono||!r.mail||!r.direccion){alert('Completá nombre, apellido, DNI, teléfono, correo y dirección. El número de socio es opcional.');return}if(!/^\d{7,8}$/.test(r.dni)){alert('El DNI debe tener 7 u 8 dígitos, sin puntos ni letras.');$('#r-dni').focus();return}const telDigits=r.telefono.replace(/\D/g,'');if(telDigits.length<8||telDigits.length>15){alert('El teléfono debe contener entre 8 y 15 dígitos. Incluí código de área si corresponde.');$('#r-telefono').focus();return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(r.mail)){alert('El correo no tiene un formato válido. Revisá que tenga usuario, @ y dominio.');$('#r-mail').focus();return}if(lectores.some(x=>x.dni===r.dni)){alert('Ya existe un lector con ese DNI.');return}r.id='r'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);lectores.push(r);persistLoans();$('#r-select').value=r.id;$('#r-nombre').value='';$('#r-apellido').value='';$('#r-dni').value='';$('#r-socio').value='';$('#r-telefono').value='';$('#r-mail').value='';$('#r-direccion').value='';$('#r-institucion').value='';$('#r-curso').value='';$('#r-division').value='';$('#r-turno').value='';alert('Lector guardado. Quedó disponible en «Lector registrado» para próximos préstamos.');};
 $('#r-delete').onclick=()=>{const id=$('#r-select').value;if(!id){alert('Seleccioná primero un lector registrado.');return}const r=lectores.find(x=>x.id===id);if(!r)return;if(prestamos.some(p=>p.lectorId===id&&!p.devolucion)){alert('No se puede eliminar este lector porque tiene préstamos pendientes. Registrá las devoluciones primero.');return}if(!confirm('¿Eliminar de la lista de lectores a '+lectorNombre(r)+'? El historial de préstamos ya registrado se conserva.'))return;lectores=lectores.filter(x=>x.id!==id);persistLoans();$('#r-select').value='';};
-$('#l-save').onclick=()=>{const rid=$('#r-select').value,bid=$('#l-book').value,type=$('#l-type').value,reader=lectores.find(r=>r.id===rid);if(!reader||!bid){alert('Seleccioná un lector y un ejemplar disponible.');return}const outstanding=prestamos.filter(p=>p.lectorId===rid&&vencido(p));const override=$('#l-override').checked,reason=$('#l-reason').value.trim();if(outstanding.length&&!override){alert('Préstamo bloqueado: el lector tiene un préstamo vencido. Solo el administrador puede autorizar una excepción.');return}if(outstanding.length&&override&&!reason){alert('Indicá el motivo de la excepción manual.');return}const now=new Date(),days=Math.min(3,Math.max(1,Number($('#l-days').value)||1)),due=new Date(now);due.setDate(due.getDate()+(type==='sala'?0:days));prestamos.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),lectorId:rid,libroId:bid,tipo:type,dias:type==='sala'?0:days,fecha:fechaISO(now),vencimiento:type==='sala'?fechaISO(now):fechaISO(due),devolucion:'',excepcion:outstanding.length&&override,motivo:outstanding.length&&override?reason:''});$('#l-override').checked=false;$('#l-reason').value='';persistLoans();alert('Préstamo registrado.');};
+$('#l-save').onclick=()=>{const rid=$('#r-select').value,bid=$('#l-book').value,type=$('#l-type').value,reader=lectores.find(r=>r.id===rid);if(!reader||!bid){alert('Seleccioná un lector y un ejemplar disponible.');return}const outstanding=prestamos.filter(p=>p.lectorId===rid&&!p.devolucion);const override=$('#l-override').checked,reason=$('#l-reason').value.trim();if(outstanding.length&&!override){alert('Préstamo bloqueado: el lector todavía tiene uno o más libros sin devolver. Para autorizar otro préstamo, marque “Autorizar excepción manual” e indique el motivo.');return}if(outstanding.length&&override&&!reason){alert('Indicá el motivo de la excepción manual.');return}const now=new Date(),days=Math.min(3,Math.max(1,Number($('#l-days').value)||1)),due=new Date(now);due.setDate(due.getDate()+(type==='sala'?0:days));prestamos.push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),lectorId:rid,libroId:bid,tipo:type,dias:type==='sala'?0:days,fecha:fechaISO(now),vencimiento:type==='sala'?fechaISO(now):fechaISO(due),devolucion:'',excepcion:outstanding.length&&override,motivo:outstanding.length&&override?reason:''});$('#l-override').checked=false;$('#l-reason').value='';persistLoans();alert('Préstamo registrado.');};
 $('#r-select').addEventListener('change',renderLoans);$('#l-type').addEventListener('change',()=>{$('#l-days').disabled=$('#l-type').value==='sala'});
 $('#loans-list').addEventListener('click',e=>{const b=e.target.closest('[data-return]');if(!b)return;const p=prestamos.find(x=>x.id===b.dataset.return);if(!p||p.devolucion)return;if(confirm('¿Confirmás la devolución de este ejemplar?')){p.devolucion=fechaISO(new Date());persistLoans();}});
 
@@ -1037,8 +1038,54 @@ function canonInv(value){let n=String(value||'').trim().replace(/^PAP-/i,'').rep
 function mergeImportedBooks(rows){let added=0;for(const d of rows){const inv=canonInv(d.inventario);if(inv&&libros.some(b=>canonInv(b.inventario)===inv)){continue;}const obj={...d,id:'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,8),inventario:inv};libros.push(obj);added++;}persist();updateCount();renderList();renderStats();return added;}
 function readCsvImport(inputId,sep){$('#'+inputId).onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCsvText(await f.text(),sep);if(!rows.length)throw new Error('No encontré filas con título y encabezados reconocidos.');if(confirm('Se importarán los registros CSV encontrados. Los inventarios duplicados se omitirán. ¿Continuar?'))alert('Importación terminada. Libros agregados: '+mergeImportedBooks(rows));}catch(err){alert('No se pudo importar el CSV: '+err.message)}e.target.value='';};}
 [['i-csv','i-csv-file',';'],['i-csv2','i-csv2-file',','],['i-xl','i-xl-file',';']].forEach(([btn,file,sep])=>{$('#'+btn).onclick=()=>$('#'+file).click();readCsvImport(file,sep);});
-function parseMarcXml(txt){const xml=new DOMParser().parseFromString(txt,'application/xml');if(xml.querySelector('parsererror'))throw new Error('XML no válido.');return [...xml.querySelectorAll('record')].map(rec=>{const o={};const fields=[...rec.querySelectorAll(':scope > datafield')];for(const f of fields){const tag=f.getAttribute('tag'),val=[...f.querySelectorAll('subfield')].map(x=>x.textContent.trim()).filter(Boolean);if(tag==='020')o.isbn=val.join(' ');if(tag==='245')o.titulo=val.join(' ').replace(/\s*\/\s*$/,'');if(tag==='100'||tag==='110')o.autor=val.join(' ');if(tag==='260'||tag==='264'){const subs=[...f.querySelectorAll('subfield')];for(const x of subs){if(x.getAttribute('code')==='b')o.editorial=x.textContent.trim();if(x.getAttribute('code')==='c')o.anio=(x.textContent.match(/\d{4}/)||[])[0]||'';}}if(tag==='082')o.cdd=val[0]||'';if(tag==='520')o.resumen=val.join(' ');if(tag==='490')o.coleccion=val.join(' ');if(tag==='952')o.ubicacion=val.join(' ');}return o;}).filter(x=>x.titulo);}
-function parseMarcIso(buffer){const bytes=new Uint8Array(buffer),out=[];let pos=0;while(pos+24<=bytes.length){const leader=String.fromCharCode(...bytes.slice(pos,pos+24));const len=parseInt(leader.slice(0,5),10);if(!len||len<25||pos+len>bytes.length)break;const base=parseInt(leader.slice(12,17),10);if(!base||base>len)break;const rec=bytes.slice(pos,pos+len),dirEnd=rec.indexOf(0x1e,24);const fields={};for(let d=24;d+12<=dirEnd;d+=12){const tag=String.fromCharCode(...rec.slice(d,d+3)),fl=parseInt(String.fromCharCode(...rec.slice(d+3,d+7)),10),st=parseInt(String.fromCharCode(...rec.slice(d+7,d+12)),10);if(!fl||base+st+fl>len)continue;const raw=rec.slice(base+st,base+st+fl-1);let chunks=[],cur='';for(let i=0;i<raw.length;i++){if(raw[i]===0x1f){if(cur)chunks.push(cur);cur=String.fromCharCode(raw[i+1]||32)+':';i++;}else cur+=String.fromCharCode(raw[i]);}if(cur)chunks.push(cur);fields[tag]=(fields[tag]||[]).concat(chunks.map(x=>x.replace(/^[a-z]:/,'')));}const get=(tag)=>((fields[tag]||[]).join(' ').trim());let t=get('245');out.push({isbn:get('020'),titulo:t,autor:get('100')||get('110'),editorial:get('260')||get('264'),coleccion:get('490'),cdd:get('082'),resumen:get('520'),ubicacion:get('952')});pos+=len;}return out.filter(x=>x.titulo);}
+function marcMapFields(fields){
+ const vals=(tag,code)=>fields.filter(f=>f.tag===tag).flatMap(f=>f.subs.filter(s=>!code||s.code===code).map(s=>s.value)).filter(Boolean);
+ const first=(tag,code)=>vals(tag,code)[0]||'';
+ const out={};
+ out.isbn=vals('020','a').join(' ');
+ const titleA=first('245','a').replace(/[\s\/:;,.]+$/,''); const titleB=first('245','b').replace(/[\s\/:;,.]+$/,'');
+ out.titulo=[titleA,titleB].filter(Boolean).join(': ');
+ out.autor=[...vals('100','a'),...vals('110','a'),...vals('700','a')].join('; ');
+ out.editorial=first('264','b')||first('260','b');
+ const yearRaw=first('264','c')||first('260','c')||''; out.anio=(yearRaw.match(/\d{4}/)||[])[0]||'';
+ out.paginas=first('300','a').replace(/\s*\.$/,'');
+ out.coleccion=vals('490','a').join(' ');
+ out.resumen=vals('520','a').join(' ');
+ out.genero=vals('650','a').concat(vals('655','a')).join('; ');
+ out.cdd=vals('082','a').join(' ');
+ out.ubicacion=first('852','c')||first('952','c');
+ out.inventario=first('952','p')||first('952','h')||'';
+ out.notas=vals('500','a').join(' ');
+ const lang=first('041','a'); if(lang) out.idioma=lang;
+ return out;
+}
+function parseMarcXml(txt){
+ const xml=new DOMParser().parseFromString(txt,'application/xml'); if(xml.querySelector('parsererror'))throw new Error('XML no válido.');
+ return [...xml.querySelectorAll('record')].map(rec=>{const fields=[];for(const f of [...rec.querySelectorAll(':scope > datafield')])fields.push({tag:f.getAttribute('tag'),subs:[...f.querySelectorAll('subfield')].map(x=>({code:x.getAttribute('code'),value:x.textContent.trim()}))});return marcMapFields(fields);}).filter(x=>x.titulo);
+}
+function parseMarcIso(buffer){
+ const bytes=new Uint8Array(buffer),out=[]; let pos=0;
+ while(pos+24<=bytes.length){
+  const leader=String.fromCharCode(...bytes.slice(pos,pos+24)); const len=parseInt(leader.slice(0,5),10);
+  if(!len||len<25||pos+len>bytes.length)break; const base=parseInt(leader.slice(12,17),10); if(!base||base>len)break;
+  const rec=bytes.slice(pos,pos+len),dirEnd=rec.indexOf(0x1e,24); if(dirEnd<24)break; const fields=[];
+  for(let d=24;d+12<=dirEnd;d+=12){
+   const tag=String.fromCharCode(...rec.slice(d,d+3)),fl=parseInt(String.fromCharCode(...rec.slice(d+3,d+7)),10),st=parseInt(String.fromCharCode(...rec.slice(d+7,d+12)),10);
+   if(!fl||base+st+fl>len)continue; const raw=rec.slice(base+st,base+st+fl-1);
+   if(['001','005','008'].includes(tag)){if(tag==='008')fields.push({tag,control:new TextDecoder('utf-8').decode(raw)});continue;}
+   if(raw.length<2)continue;
+   const enc=leader[9]==='a'?'utf-8':'windows-1252'; const text=new TextDecoder(enc).decode(raw.slice(2));
+   const chunks=[];let curCode='',cur='';
+   for(let i=0;i<text.length;i++){
+    if(text.charCodeAt(i)===0x1f){if(curCode)chunks.push({code:curCode,value:cur.trim()});curCode=text[i+1]||'';cur='';i++;}
+    else if(text.charCodeAt(i)!==0x1e&&text.charCodeAt(i)!==0x1d)cur+=text[i];
+   }
+   if(curCode)chunks.push({code:curCode,value:cur.trim()}); fields.push({tag,subs:chunks});
+  }
+  const obj=marcMapFields(fields); if(obj.titulo)out.push(obj); pos+=len;
+ }
+ return out;
+}
 $('#i-xml').onclick=()=>$('#i-xml-file').click();$('#i-xml-file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseMarcXml(await f.text());if(!rows.length)throw new Error('No encontré registros con título.');if(confirm('Se importarán los registros MARCXML. Los inventarios no incluidos quedarán vacíos. ¿Continuar?'))alert('Libros agregados: '+mergeImportedBooks(rows));}catch(err){alert('No se pudo importar MARCXML: '+err.message)}e.target.value='';};
 [['i-iso','i-iso-file'],['i-mrc','i-mrc-file']].forEach(([btn,file])=>{$('#'+btn).onclick=()=>$('#'+file).click();$('#'+file).onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseMarcIso(await f.arrayBuffer());if(!rows.length)throw new Error('No se reconocieron registros MARC21 ISO 2709.');if(confirm('Se importarán registros MARC21. Los inventarios no incluidos quedarán vacíos. ¿Continuar?'))alert('Libros agregados: '+mergeImportedBooks(rows));}catch(err){alert('No se pudo importar MARC21: '+err.message)}e.target.value='';};});
 

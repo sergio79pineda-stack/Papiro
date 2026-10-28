@@ -39,3 +39,10 @@ La ficha de lectores contiene datos personales. No publiques ni compartas respal
 - La vista de portada/contratapa usa el mismo tamaño de visualización.
 
 Nota: la aplicación sigue guardando datos localmente en el dispositivo. No incluye todavía sincronización automática con Google Drive ni colaboración multiusuario. Los importadores MARC cubren los campos bibliográficos habituales, pero pueden necesitar revisión al intercambiar registros con catálogos de terceros.
+
+
+## Nota sobre MARC21 y traslado entre dispositivos
+
+MARC21 ISO 2709/MRC/MARCXML intercambia metadatos bibliográficos, pero no incluye de forma estándar las imágenes locales de portada y contratapa ni todos los campos específicos de Papiro. Para transferir la biblioteca completa entre dispositivos, usar **Exportar copia JSON** e **Importar copia JSON**. La importación MARC interpreta indicadores y subcampos, y recupera título, autor, editorial, año, páginas, materia, CDD, colección, resumen, notas, ubicación e inventario cuando están presentes en los campos correspondientes.
+
+La regla de préstamos impide registrar otro préstamo a un lector con cualquier ejemplar aún no devuelto. La casilla de autorización excepcional permite continuar solo si se marca y se escribe el motivo, que queda guardado en el préstamo.
