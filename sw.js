@@ -1,5 +1,10 @@
-const CACHE_NAME = 'papiro-v4';
-const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './biblioteca-praga.jpg', './biblioteca-alejandria.jpg', './biblioteca-san-francisco.jpg'];
+// Papiro V6: nueva versión para invalidar la caché anterior y cargar las imágenes nuevas.
+const CACHE_NAME = 'papiro-v6';
+const CORE = [
+  './', './index.html', './manifest.json', './icon-192.png', './icon-512.png',
+  './biblioteca-praga.jpg', './biblioteca-alejandria.jpg', './biblioteca-san-francisco.jpg',
+  './biblioteca-alejandria-prestamos.jpg', './biblioteca-alejandria-atras.jpg'
+];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });
