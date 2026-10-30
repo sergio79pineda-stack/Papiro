@@ -1,5 +1,5 @@
 // Papiro V6: nueva versión para invalidar la caché anterior y cargar las imágenes nuevas.
-const CACHE_NAME = 'papiro-v6';
+const CACHE_NAME = 'papiro-v7';
 const CORE = [
   './', './index.html', './manifest.json', './icon-192.png', './icon-512.png',
   './biblioteca-praga.jpg', './biblioteca-alejandria.jpg', './biblioteca-san-francisco.jpg',

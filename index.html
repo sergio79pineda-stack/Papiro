@@ -157,6 +157,14 @@ p.h{color:#c5b8c0;line-height:1.5}
     <div id="ocr-msg" class="h"></div>
     <div id="ocr-lineas"></div>
     <details id="ocr-det" hidden><summary>Texto leído de la foto</summary><textarea id="ocr-txt" rows="8" readonly></textarea></details>
+    <label for="f-tipo">Tipo de material *</label>
+    <select id="f-tipo"><option value="libro">Libro</option><option value="revista">Revista / publicación periódica</option><option value="pelicula">Película o serie</option><option value="musica">Música (CD, vinilo, casete u otro)</option><option value="videojuego">Videojuego / juego de PC</option><option value="pdf">Documento digital / PDF</option><option value="mapa">Mapa / plano</option><option value="fotografia">Fotografía / imagen</option><option value="partitura">Partitura</option><option value="otro">Otro material</option></select>
+    <div id="material-extra" class="card" style="margin-top:10px"><h3>Datos según el tipo de material</h3>
+      <div class="row"><div><label for="f-creador">Director / artista / creador</label><input id="f-creador" placeholder="Según corresponda"></div><div><label for="f-formato">Formato / soporte</label><input id="f-formato" placeholder="DVD, Blu-ray, CD, vinilo, PDF…"></div></div>
+      <div class="row"><div><label for="f-duracion">Duración (si corresponde)</label><input id="f-duracion" placeholder="Ej.: 105 min o 2 h 30 min"></div><div><label for="f-plataforma">Plataforma / edición / volumen</label><input id="f-plataforma" placeholder="Ej.: PS5, temporada 1, vol. 3"></div></div>
+      <label for="f-pistas">Pistas / capítulos / contenido</label><textarea id="f-pistas" rows="2" placeholder="Opcional"></textarea>
+      <p class="h">Estos campos son opcionales. Se irán afinando según cada tipo de material.</p>
+    </div>
     <label for="f-inventario">Número de inventario *</label><div class="isbnrow"><span style="display:flex;align-items:center;padding:0 12px;border:1px solid #6f5261;border-radius:11px;background:#171017;color:#ffadd1;font-weight:800">PAP-</span><input id="f-inventario" placeholder="0001" autocomplete="off" aria-label="Número correlativo de inventario, sin el prefijo PAP-"></div><p class="h">PAP- es un prefijo interno de Papiro, no una norma bibliotecaria oficial. Escribí el número: 14 se guardará como PAP-0014; los números de más de 4 cifras se conservan completos.</p>
     <label for="f-isbn">ISBN</label><input id="f-isbn" inputmode="numeric">
     <label for="f-titulo">Título *</label><input id="f-titulo">
@@ -205,7 +213,24 @@ p.h{color:#c5b8c0;line-height:1.5}
   <div class="card"><h2>Buscar préstamos / registrar devoluciones</h2><label for="loan-search">Buscar por apellido, DNI, número de socio, título o inventario</label><input id="loan-search" placeholder="Ej.: Pérez, 30111222, socio 14 o Dante"><div id="loans-list"></div></div>
 </section>
 
+<section id="t-reader" hidden><div class="section-hero hero-more"><div class="hero-shade"></div><div class="hero-title"><span>LECTURA DIGITAL</span><h2>Leer PDF</h2><p>Abrí un documento en el visor del navegador, sin subirlo a un servidor.</p></div></div>
+  <div class="card"><h2>Abrir un PDF</h2><p class="h">El archivo se abre localmente en este dispositivo. Esta primera versión no lo sube a internet ni lo comparte con otras personas. Para conservarlo en la biblioteca, guardá el archivo en tu dispositivo y asociá sus datos desde la ficha del material.</p>
+  <label for="pdf-file">Seleccionar archivo PDF</label><input id="pdf-file" type="file" accept="application/pdf,.pdf"><div class="row"><button class="btn sec" id="pdf-newtab" disabled>Abrir en otra pestaña</button><button class="btn sec" id="pdf-close" disabled>Cerrar lector</button></div>
+  <div id="pdf-help" class="h">Seleccioná un PDF para mostrarlo abajo. La lectura en voz alta depende del navegador y del sistema operativo; los controles accesibles del visor pueden variar. Si el documento es un escaneo, primero necesitará OCR para reconocer el texto.</div>
+  <iframe id="pdf-frame" title="Visor de PDF" style="width:100%;height:70vh;border:1px solid #6f5261;border-radius:10px;background:#fff" hidden></iframe></div>
+</section>
+
 <section id="t-more" hidden><div class="section-hero hero-more"><div class="hero-shade"></div><div class="hero-title"><span>RESPALDO Y DATOS</span><h2>Exportar</h2><p>Tu biblioteca también es tuya fuera de Papiro.</p></div></div>
+  <div class="card"><h2>Datos de la biblioteca</h2><p class="h">Completá estos datos una sola vez para identificar tu colección. En esta versión se guardan en este navegador; todavía no crean usuarios ni sincronizan dispositivos.</p>
+    <label for="lib-nombre">Nombre de la biblioteca *</label><input id="lib-nombre" placeholder="Ej.: Biblioteca personal de Sergio">
+    <label for="lib-tipo">Tipo de biblioteca</label><select id="lib-tipo"><option value="personal">Personal / familiar</option><option value="publica">Biblioteca pública</option><option value="popular">Biblioteca popular</option><option value="escolar">Biblioteca escolar</option><option value="universitaria">Biblioteca universitaria / facultad</option><option value="especializada">Biblioteca especializada</option><option value="privada">Biblioteca privada</option><option value="otra">Otra</option></select>
+    <label for="lib-institucion">Institución de pertenencia</label><input id="lib-institucion" placeholder="Escuela, universidad, organización…">
+    <label for="lib-nivel">Nivel / alcance educativo (si corresponde)</label><input id="lib-nivel" placeholder="Inicial, primaria, secundaria, superior, varios…">
+    <div class="row"><div><label for="lib-direccion">Dirección</label><input id="lib-direccion"></div><div><label for="lib-localidad">Localidad / provincia</label><input id="lib-localidad"></div></div>
+    <div class="row"><div><label for="lib-mail">Correo institucional</label><input id="lib-mail" type="email"></div><div><label for="lib-telefono">Teléfono / contacto</label><input id="lib-telefono"></div></div>
+    <label for="lib-legal">Datos legales / identificatorios (opcionales)</label><textarea id="lib-legal" rows="2" placeholder="CUIT, dependencia, número de registro u otros datos pertinentes"></textarea>
+    <button class="btn" id="lib-save">Guardar datos de la biblioteca</button><span id="lib-status" class="h" aria-live="polite"></span>
+  </div>
   <div class="card">
     <h2>Exportar lista</h2>
     <p class="h">Para planillas (Excel) y otros sistemas. Para Aguapey o Koha usá el MARC de más abajo. Columnas: inventario, ISBN, Título, Autor, Editorial, Colección, Materia, CDD, Año, Páginas, Idioma, Ubicación, Notas, Resumen.</p>
@@ -252,13 +277,14 @@ p.h{color:#c5b8c0;line-height:1.5}
   <button data-t="lib">▤ <span>Biblioteca</span></button>
   <button data-t="loans">⇄ <span>Préstamos</span></button>
   <button data-t="stats">▥ <span>Gráficos</span></button>
+  <button data-t="reader">📖 <span>Leer PDF</span></button>
   <button data-t="more">⇧ <span>Exportar</span></button>
 </nav>
 
 <script>
 const $ = s => document.querySelector(s);
 const KEY = 'papiro_biblioteca_v2', CFG = 'papiro_biblioteca_cfg';
-const F = ['inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas','colaboradores','premios','agradecimientos'];
+const F = ['tipo','inventario','isbn','titulo','autor','editorial','coleccion','anio','paginas','idioma','genero','cdd','ubicacion','resumen','notas','creador','formato','duracion','plataforma','pistas','colaboradores','premios','agradecimientos'];
 let libros = [], lectores = [], prestamos = [], expurgos = [], editId = null, detailId = null, scanning = false, stream = null, detector = null, h5 = null, lastCode = '', lastTime = 0;
 
 /* Almacenamiento en IndexedDB (aguanta muchas fotos); migra lo viejo de localStorage */
@@ -274,13 +300,15 @@ async function init() {
   }
   libros = v; lectores = (await idbGet('lectores').catch(()=>[])) || []; prestamos = (await idbGet('prestamos').catch(()=>[])) || []; expurgos = (await idbGet('expurgos').catch(()=>[])) || []; updateCount(); renderLoans();
 }
-try { const c = JSON.parse(localStorage.getItem(CFG) || '{}'); $('#def-ubic').value = c.ubic || ''; $('#def-col').value = c.col || ''; $('#quick').checked = !!c.quick; } catch (e) {}
+try { const c = JSON.parse(localStorage.getItem(CFG) || '{}'); $('#def-ubic').value = c.ubic || ''; $('#def-col').value = c.col || ''; $('#quick').checked = !!c.quick; const l=c.biblioteca||{}; ['nombre','tipo','institucion','nivel','direccion','localidad','mail','telefono','legal'].forEach(k=>{const el=$('#lib-'+k);if(el)el.value=l[k]|| (k==='tipo'?'personal':'');}); } catch (e) {}
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 
 function persist() { idbSet('libros', libros).catch(e => alert('No se pudo guardar: ' + (e && e.message))); }
 function persistLoans(){idbSet('lectores',lectores);idbSet('prestamos',prestamos);idbSet('expurgos',expurgos);renderLoans();if(typeof renderStats==='function')renderStats();}
-function saveCfg() { try { localStorage.setItem(CFG, JSON.stringify({ ubic: $('#def-ubic').value, col: $('#def-col').value, quick: $('#quick').checked })); } catch (e) {} }
-function updateCount() { $('#count').textContent = libros.length + (libros.length === 1 ? ' libro' : ' libros'); }
+function saveCfg() { try { const old=JSON.parse(localStorage.getItem(CFG)||'{}'); const biblioteca={}; ['nombre','tipo','institucion','nivel','direccion','localidad','mail','telefono','legal'].forEach(k=>{const el=$('#lib-'+k);if(el)biblioteca[k]=el.value.trim();}); localStorage.setItem(CFG, JSON.stringify({ ...old, ubic: $('#def-ubic').value, col: $('#def-col').value, quick: $('#quick').checked, biblioteca })); } catch (e) {} }
+$('#lib-save').onclick=()=>{if(!$('#lib-nombre').value.trim()){alert('Ingresá el nombre de la biblioteca.');$('#lib-nombre').focus();return;}saveCfg();$('#lib-status').textContent=' · Datos guardados en este dispositivo.';};
+['nombre','tipo','institucion','nivel','direccion','localidad','mail','telefono','legal'].forEach(k=>{const el=$('#lib-'+k);if(el)el.addEventListener('change',()=>{saveCfg();$('#lib-status').textContent=' · Cambios pendientes de guardar confirmados localmente.';});});
+function updateCount() { $('#count').textContent = libros.length + (libros.length === 1 ? ' material' : ' materiales'); }
 function status(t, cls) { const s = $('#status'); s.textContent = t; s.className = cls || ''; }
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -435,7 +463,7 @@ function setCover(u) {
   $('#btn-quitar-foto').hidden = !u;
 }
 function setBackCover(u) { const i = $('#back-cover'); i.dataset.src = u || ''; if (u) { i.src = u; i.hidden = false; } else { i.removeAttribute('src'); i.hidden = true; } $('#btn-quitar-contra').hidden = !u; }
-function fill(d) { F.forEach(k => { if (d[k] !== undefined && $('#f-' + k)) $('#f-' + k).value = k === 'inventario' ? String(d[k]||'').replace(/^PAP-/i,'') : d[k]; }); ['colaboradores','premios','agradecimientos'].forEach(k=>{const on=!!String(d[k]||'').trim();$('#extra-'+k+'-toggle').checked=on;$('#extra-'+k+'-wrap').hidden=!on;}); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); sincronizarCDD(); }
+function fill(d) { F.forEach(k => { if (d[k] !== undefined && $('#f-' + k)) $('#f-' + k).value = k === 'inventario' ? String(d[k]||'').replace(/^PAP-/i,'') : d[k]; }); if($('#f-tipo'))$('#f-tipo').value=d.tipo||'libro'; ['colaboradores','premios','agradecimientos'].forEach(k=>{const on=!!String(d[k]||'').trim();$('#extra-'+k+'-toggle').checked=on;$('#extra-'+k+'-wrap').hidden=!on;}); setCover(d.portada || ''); setBackCover(d.contratapa || ''); marcarChips(); sincronizarCDD(); }
 
 /* ---------- Lectura de la página legal (OCR) ---------- */
 function isbnValido(c) {
@@ -815,7 +843,7 @@ function limpiar(keepStatus) {
   $('#f-coleccion').value = $('#def-col').value;
   $('#ocr-msg').textContent = ''; $('#ocr-det').hidden = true; $('#ocr-txt').value = ''; $('#ocr-lineas').innerHTML = ''; marcarChips();
   setCover(''); setBackCover(''); $('#f-idioma').value = 'Español'; editId = null;
-  $('#btn-del').hidden = true; $('#formcard').hidden = true; $('#formtitle').textContent = 'Datos del libro';
+  $('#btn-del').hidden = true; $('#formcard').hidden = true; $('#formtitle').textContent = 'Datos del material'; if($('#f-tipo'))$('#f-tipo').value='libro';
   if (!keepStatus) status('');
 }
 function guardarLibro(auto) {
@@ -844,7 +872,7 @@ function editar(id) {
   limpiar(true);
   editId = id; fill(b);
   $('#f-coleccion').value = b.coleccion || ''; $('#f-ubicacion').value = b.ubicacion || '';
-  $('#formcard').hidden = false; $('#btn-del').hidden = false; $('#formtitle').textContent = 'Editar libro';
+  $('#formcard').hidden = false; $('#btn-del').hidden = false; $('#formtitle').textContent = 'Editar material';
   status('');
   $('#formcard').scrollIntoView();
 }
@@ -948,19 +976,19 @@ $('#quick').addEventListener('change', saveCfg);
 /* ---------- Lista ---------- */
 function renderList() {
   const q = norm($('#q').value);
-  const res = libros.filter(b => !q || norm([b.titulo, b.autor, b.editorial, b.coleccion, b.genero, b.cdd, b.resumen, b.isbn, b.ubicacion, b.inventario].join(' ')).includes(q));
+  const res = libros.filter(b => !q || norm([b.titulo, b.autor, b.editorial, b.coleccion, b.genero, b.cdd, b.resumen, b.isbn, b.ubicacion, b.inventario, b.tipo, b.creador, b.formato, b.plataforma, b.pistas].join(' ')).includes(q));
   $('#list').innerHTML = res.length ? res.map(b =>
     '<div class="item" data-id="' + esc(b.id) + '">' +
     (b.portada ? '<img loading="lazy" src="' + esc(b.portada) + '" alt="">' : '<div class="ph"></div>') +
     '<div><b>' + esc(b.titulo) + '</b><small>' + esc([b.autor, b.editorial, b.anio].filter(Boolean).join(' · ')) + '</small>' +
-    '<small>' + esc([b.coleccion, b.genero ? 'Materia: '+b.genero : '', b.cdd ? 'CDD ' + b.cdd + (DEWEY.find(d=>d[0]===String(b.cdd)) ? ' — '+DEWEY.find(d=>d[0]===String(b.cdd))[1] : '') : '', b.inventario ? 'Inv. '+b.inventario : '', b.isbn, b.ubicacion].filter(Boolean).join(' · ')) + '</small></div></div>'
+    '<small>' + esc([b.tipo && b.tipo!=='libro' ? 'Tipo: '+({'revista':'Revista','pelicula':'Película/serie','musica':'Música','videojuego':'Videojuego','pdf':'Documento digital','mapa':'Mapa/plano','fotografia':'Fotografía','partitura':'Partitura','otro':'Otro'}[b.tipo]||b.tipo) : '', b.coleccion, b.genero ? 'Materia: '+b.genero : '', b.cdd ? 'CDD ' + b.cdd + (DEWEY.find(d=>d[0]===String(b.cdd)) ? ' — '+DEWEY.find(d=>d[0]===String(b.cdd))[1] : '') : '', b.inventario ? 'Inv. '+b.inventario : '', b.isbn, b.ubicacion].filter(Boolean).join(' · ')) + '</small></div></div>'
   ).join('') : '<p class="h">' + (libros.length ? 'Sin resultados.' : 'Todavía no cargaste libros.') + '</p>';
 }
 $('#q').addEventListener('input', renderList);
 function verLibro(id) {
  const b=libros.find(x=>x.id===id); if(!b)return; detailId=id;
  $('#detail-title').textContent=b.titulo||'Ficha del libro';
- const fields=[['Número de inventario',b.inventario],['ISBN',b.isbn],['Autor',b.autor],['Editorial',b.editorial],['Colección',b.coleccion],['Materia',b.genero],['Clasificación CDD',b.cdd ? (String(b.cdd).match(/^\d{3}/)?.[0] || b.cdd) + ' — ' + ((DEWEY.find(d=>d[0]===String(b.cdd).match(/^\d{3}(?:\.\d+)?/)?.[0]) || DEWEY.find(d=>d[0]===String(b.cdd).slice(0,3)) || ['', 'Descripción no disponible'])[1]) : ''],['Año',b.anio],['Páginas',b.paginas],['Idioma',b.idioma],['Ubicación',b.ubicacion],['Resumen',b.resumen],['Notas',b.notas],['Colaboradores',b.colaboradores],['Premios',b.premios],['Agradecimientos',b.agradecimientos]];
+ const fields=[['Tipo de material',({'libro':'Libro','revista':'Revista / publicación periódica','pelicula':'Película o serie','musica':'Música','videojuego':'Videojuego','pdf':'Documento digital / PDF','mapa':'Mapa / plano','fotografia':'Fotografía','partitura':'Partitura','otro':'Otro'}[b.tipo||'libro'])],['Número de inventario',b.inventario],['Creador / director / artista',b.creador],['Formato / soporte',b.formato],['Duración',b.duracion],['Plataforma / edición',b.plataforma],['Pistas / capítulos',b.pistas],['ISBN',b.isbn],['Autor',b.autor],['Editorial',b.editorial],['Colección',b.coleccion],['Materia',b.genero],['Clasificación CDD',b.cdd ? (String(b.cdd).match(/^\d{3}/)?.[0] || b.cdd) + ' — ' + ((DEWEY.find(d=>d[0]===String(b.cdd).match(/^\d{3}(?:\.\d+)?/)?.[0]) || DEWEY.find(d=>d[0]===String(b.cdd).slice(0,3)) || ['', 'Descripción no disponible'])[1]) : ''],['Año',b.anio],['Páginas',b.paginas],['Idioma',b.idioma],['Ubicación',b.ubicacion],['Resumen',b.resumen],['Notas',b.notas],['Colaboradores',b.colaboradores],['Premios',b.premios],['Agradecimientos',b.agradecimientos]];
  $('#detail-body').innerHTML='<div class="detail-images">'+(b.portada?'<div><img src="'+esc(b.portada)+'" alt="Portada"><p>Portada</p></div>':'<div><div class="ph"></div><p>Portada no cargada</p></div>')+(b.contratapa?'<div><img src="'+esc(b.contratapa)+'" alt="Contratapa"><p>Contratapa</p></div>':'<div><div class="ph"></div><p>Contratapa no cargada</p></div>')+'</div><div class="book-detail-view" style="margin-top:14px">'+fields.map(([k,v])=>'<div><small style="display:block;color:#ffadd1;font-weight:800">'+esc(k)+'</small><div style="white-space:pre-wrap">'+esc(v||'—')+'</div></div>').join('')+'</div>';
  $('#book-detail-card').hidden=false; $('#book-detail-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -971,7 +999,7 @@ $('#detail-duplicate').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x
 $('#detail-expunge').onclick=()=>{if(!detailId)return;const b=libros.find(x=>x.id===detailId);if(!b)return;const motivo=prompt('Motivo del expurgo (venta, rotura, pérdida, descarte u otro):');if(motivo===null)return;if(!motivo.trim()){alert('Indicá el motivo de la baja para registrar el expurgo.');return;}if(!confirm('¿Dar de baja «'+b.titulo+'» del catálogo? Se conservará el registro de expurgo.'))return;expurgos.push({id:b.id,inventario:b.inventario||'',titulo:b.titulo||'',autor:b.autor||'',motivo:motivo.trim(),fecha:fechaISO(new Date())});libros=libros.filter(x=>x.id!==b.id);persist();persistLoans();updateCount();renderList();$('#book-detail-card').hidden=true;detailId=null;alert('Libro dado de baja y expurgo registrado.');};
 
 /* ---------- Exportar ---------- */
-const COLS = [['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen'], ['Colaboradores','colaboradores'], ['Premios','premios'], ['Agradecimientos','agradecimientos']];
+const COLS = [['Tipo','tipo'], ['Creador','creador'], ['Formato','formato'], ['Duración','duracion'], ['Plataforma / edición','plataforma'], ['Pistas / capítulos','pistas'], ['Inventario','inventario'], ['ISBN', 'isbn'], ['Título', 'titulo'], ['Autor', 'autor'], ['Editorial', 'editorial'], ['Colección', 'coleccion'], ['Materia', 'genero'], ['CDD', 'cdd'], ['Año', 'anio'], ['Páginas', 'paginas'], ['Idioma', 'idioma'], ['Ubicación', 'ubicacion'], ['Notas', 'notas'], ['Resumen', 'resumen'], ['Colaboradores','colaboradores'], ['Premios','premios'], ['Agradecimientos','agradecimientos']];
 function csv(sep, excel) {
   const q = (v, isIsbn) => {
     v = String(v == null ? '' : v);
@@ -1009,7 +1037,7 @@ function marcExport(ext) {
 $('#m-iso').onclick = () => marcExport('iso');
 $('#m-mrc').onclick = () => marcExport('mrc');
 $('#m-xml').onclick = () => marcExport('xml');
-$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({version:3,libros,lectores,prestamos,expurgos}), 'application/json');
+$('#b-exp').onclick = () => hay() && bajar('biblioteca_copia_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify({version:4,libros,lectores,prestamos,expurgos,config:JSON.parse(localStorage.getItem(CFG)||'{}')}), 'application/json');
 $('#b-imp').onclick = () => $('#b-file').click();
 $('#b-file').onchange = async e => {
   const f = e.target.files[0]; if (!f) return;
@@ -1020,7 +1048,7 @@ $('#b-file').onchange = async e => {
     const ids = new Set(libros.map(x => x.id));
     const nuevos = arr.filter(x => x && x.titulo && x.id && !ids.has(x.id));
     if (!confirm('Se van a agregar ' + nuevos.length + ' libros nuevos (se omiten los repetidos). ¿Seguir?')) return;
-    libros = libros.concat(nuevos); if(!Array.isArray(data)){const rids=new Set(lectores.map(x=>x.id));lectores=lectores.concat((data.lectores||[]).filter(x=>!rids.has(x.id)));const pids=new Set(prestamos.map(x=>x.id));prestamos=prestamos.concat((data.prestamos||[]).filter(x=>!pids.has(x.id)));expurgos=expurgos.concat((data.expurgos||[]).filter(x=>!expurgos.some(y=>y.id===x.id&&y.fecha===x.fecha)));persistLoans();} persist(); updateCount(); alert('Listo: ' + nuevos.length + ' libros agregados.');
+    libros = libros.concat(nuevos); if(!Array.isArray(data)){const rids=new Set(lectores.map(x=>x.id));lectores=lectores.concat((data.lectores||[]).filter(x=>!rids.has(x.id)));const pids=new Set(prestamos.map(x=>x.id));prestamos=prestamos.concat((data.prestamos||[]).filter(x=>!pids.has(x.id)));expurgos=expurgos.concat((data.expurgos||[]).filter(x=>!expurgos.some(y=>y.id===x.id&&y.fecha===x.fecha)));if(data.config){localStorage.setItem(CFG,JSON.stringify(data.config));const l=data.config.biblioteca||{};['nombre','tipo','institucion','nivel','direccion','localidad','mail','telefono','legal'].forEach(k=>{const el=$('#lib-'+k);if(el)el.value=l[k]||(k==='tipo'?'personal':'');});$('#def-ubic').value=data.config.ubic||$('#def-ubic').value;$('#def-col').value=data.config.col||$('#def-col').value;$('#quick').checked=!!data.config.quick;}persistLoans();} persist(); updateCount(); alert('Listo: ' + nuevos.length + ' materiales agregados.');
   } catch (err) { alert('No se pudo importar: ' + err.message); }
   e.target.value = '';
 };
@@ -1141,6 +1169,13 @@ function renderStats() {
   $('#stats-chart').innerHTML = arr.length ? arr.map(([label,n]) => '<div class=\"stat-row\"><div class=\"stat-label\" title=\"'+esc(label)+'\">'+esc(label)+'</div><div class=\"stat-track\"><div class=\"stat-fill\" style=\"width:'+Math.max(2,n/max*100)+'%\"></div></div><div class=\"stat-num\">'+n+'</div></div>').join('') : '<p class=\"h\">Cargá libros para empezar a ver las estadísticas.</p>';
 }
 $('#stats-mode').addEventListener('change', renderStats);
+
+// Visor local de PDF: el archivo no se envía a ningún servidor.
+let pdfUrl='';
+$('#pdf-file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(f);$('#pdf-frame').src=pdfUrl;$('#pdf-frame').hidden=false;$('#pdf-newtab').disabled=false;$('#pdf-close').disabled=false;$('#pdf-help').textContent='Abierto: '+f.name+'. El archivo permanece en este dispositivo; al cerrar la pestaña se revoca la URL temporal.';});
+$('#pdf-newtab').onclick=()=>{if(pdfUrl)window.open(pdfUrl,'_blank','noopener');};
+$('#pdf-close').onclick=()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl='';$('#pdf-frame').removeAttribute('src');$('#pdf-frame').hidden=true;$('#pdf-newtab').disabled=true;$('#pdf-close').disabled=true;$('#pdf-file').value='';$('#pdf-help').textContent='Seleccioná un PDF para mostrarlo abajo. La lectura en voz alta depende del navegador y del sistema operativo; los controles accesibles del visor pueden variar. Si el documento es un escaneo, primero necesitará OCR para reconocer el texto.';};
+$('#f-tipo').addEventListener('change',()=>{const t=$('#f-tipo').value;$('#formtitle').textContent=(editId?'Editar ':'Datos del ')+({'libro':'libro','revista':'publicación periódica','pelicula':'película o serie','musica':'material musical','videojuego':'videojuego','pdf':'documento digital','mapa':'mapa o plano','fotografia':'fotografía','partitura':'partitura','otro':'material'}[t]||'material');});
 
 init();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
